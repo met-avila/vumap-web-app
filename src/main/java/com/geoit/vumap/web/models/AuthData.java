@@ -1,6 +1,5 @@
 package com.geoit.vumap.web.models;
 
-import com.geoit.mrm.base.models.Usuario;
 import com.geoit.vumap.web.config.CustomConfig;
 
 import lombok.Data;

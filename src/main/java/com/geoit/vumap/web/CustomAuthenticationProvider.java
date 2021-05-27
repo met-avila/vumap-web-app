@@ -3,7 +3,7 @@ package com.geoit.vumap.web;
 import java.util.ArrayList;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.geoit.mrm.base.models.Perfil;
+import com.geoit.vumap.web.models.Perfil;
 import com.geoit.vumap.web.config.CustomConfig;
 import com.geoit.vumap.web.models.AuthData;
 import com.geoit.vumap.web.models.MiMunicipio;

@@ -2,7 +2,6 @@ package com.geoit.vumap.web.models;
 
 import java.util.Collection;
 
-import com.geoit.mrm.base.models.Usuario;
 import com.geoit.vumap.web.config.CustomConfig;
 
 import org.springframework.security.core.GrantedAuthority;
