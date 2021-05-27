@@ -1,0 +1,176 @@
+<div th:fragment="dependencias-modal" class="modal fade" id="dependencias-modal" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Dependencias u organizaciones</h5>
+            </div>
+            <div class="modal-body">
+                <div class="panel-content">
+                    <div class="form-row" style="max-height: 350px;overflow-y: auto;width: 100%;">
+                        <div id="dependencias-treeview" style="width: 100%;"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Cancelar</button>
+                <button onclick="depmodal.setDependencias()" id="dep-seleccionar" class="btn btn-primary waves-effect waves-themed" type="button">Seleccionar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const DepModal = function() {
+            var callback = null;
+            var checkedItems = [];
+            var dependencias = [];
+            var mode = null;
+
+            const searchChild = (idDependencia, parent, item) => {
+                if (parent.dependencias) {
+                    for (let index = 0; index < parent.dependencias.length; index++) {
+                        const dependencia = parent.dependencias[index];
+                        if (dependencia.idDependencia == idDependencia) {
+                            item = dependencia;
+                            return item;
+                        }
+                        item = searchChild(idDependencia, dependencia, item);
+                        if (item != null)
+                            return item;
+                    }
+                }
+                return null;
+            }
+
+            const setExpanden = (deps, selectedItems, enabledItems, isDisabled, onlyParents, idDependencia) => {
+                for (let index = 0; index < deps.length; index++) {
+                    const element = deps[index];
+                    element.isExpanded = true;
+                    element.selected = $.inArray(element.idDependencia, selectedItems) != -1;
+
+                    if (enabledItems && enabledItems.length > 0) {
+                        if (isDisabled === true)
+                            element.disabled = $.inArray(element.idDependencia, enabledItems) != -1;
+                        else
+                            element.disabled = $.inArray(element.idDependencia, enabledItems) == -1;
+                    } else if ($.isArray(enabledItems)) {
+                        element.disabled = true;
+                    } else if (!onlyParents)
+                        element.disabled = false;
+
+                    if (onlyParents && element.disabled == false) {
+                        if (idDependencia)
+                            element.disabled = searchChild(idDependencia, element, null) == null;
+                    }
+
+                    if (element.dependencias)
+                        setExpanden(element.dependencias, selectedItems, enabledItems, isDisabled, onlyParents, idDependencia);
+                }
+            };
+
+            const initTrewView = (selectedItems, enabledItems, isDisabled, onlyParents, idDependencia) => {
+                if ($.isArray(selectedItems))
+                    checkedItems = selectedItems;
+                else checkedItems = [];
+
+                obtenerDependencias(function(res) {
+                    dependencias = res;
+                    for (let index = 0; index < res.length; index++) {
+                        const element = res[index];
+                        element.isExpanded = true;
+                        element.selected = $.inArray(element.idDependencia, selectedItems) != -1;
+
+
+                        if (enabledItems && enabledItems.length > 0) {
+                            if (isDisabled === true)
+                                element.disabled = $.inArray(element.idDependencia, enabledItems) != -1;
+                            else
+                                element.disabled = $.inArray(element.idDependencia, enabledItems) == -1;
+                        } else if ($.isArray(enabledItems)) {
+                            element.disabled = true;
+                        } else if (!onlyParents)
+                            element.disabled = false;
+
+                        if (onlyParents && element.disabled == false) {
+                            if (idDependencia)
+                                element.disabled = searchChild(idDependencia, element, null) == null;
+                        }
+
+                        if (element.dependencias)
+                            setExpanden(element.dependencias, selectedItems, enabledItems, isDisabled, onlyParents, idDependencia);
+                    }
+
+                    $("#dependencias-treeview").dxTreeView({
+                        dataSource: res,
+                        showCheckBoxesMode: "normal",
+                        selectNodesRecursive: false,
+                        selectionMode: mode,
+                        keyExpr: 'idDependencia',
+                        displayExpr: 'nombre',
+                        itemsExpr: 'dependencias',
+                        expandedExpr: 'isExpanded',
+                        selectedExpr: 'selected',
+                        noDataText: 'Sin datos que mostrar',
+                        searchEditorOptions: {
+                            placeholder: "Escriba para buscar"
+                        },
+                        searchEnabled: true,
+                        onItemSelectionChanged: function(e) {
+                            var item = e.node;
+                            if (item.selected) {
+                                if (mode == 'single')
+                                    checkedItems = [];
+                                checkedItems.push(item.key);
+                            } else {
+                                var itemIndex = -1;
+                                $.each(checkedItems, function(index, key) {
+                                    if (key === item.key) {
+                                        itemIndex = index;
+                                        return false;
+                                    }
+                                });
+                                checkedItems.splice(itemIndex, 1);
+                            }
+                        }
+                    });
+
+                    $('#dependencias-modal').modal('show');
+                });
+            };
+
+            const getSelectedItems = (items, checkedItems, dependencias) => {
+                for (let index = 0; index < dependencias.length; index++) {
+                    const element = dependencias[index];
+                    if ($.inArray(element.idDependencia, checkedItems) != -1) {
+                        items.push({
+                            idDependencia: element.idDependencia,
+                            nombre: element.nombre
+                        });
+                    }
+                    if (element.dependencias)
+                        getSelectedItems(items, checkedItems, element.dependencias);
+                }
+            };
+
+            return {
+                show: function(callb, selectedItems, modeArgs, enabledItems, isDisabled, onlyParents, idDependencia) {
+                    callback = callb;
+                    mode = modeArgs || 'multiple'
+                    initTrewView(selectedItems, enabledItems, isDisabled, onlyParents, idDependencia);
+                },
+                setDependencias: function() {
+                    var items = [];
+                    getSelectedItems(items, checkedItems, dependencias);
+                    if (callback)
+                        callback(items);
+                    $('#dependencias-modal').modal('hide');
+                },
+                getAllDependencias: () => {
+                    return dependencias;
+                }
+            }
+        };
+        (function() {
+            depmodal = new DepModal();
+        })();
+    </script>
+</div>

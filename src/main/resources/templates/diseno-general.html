@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        Inicio
+    </title>
+    <meta name="description" content="Profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
+    <!-- Call App Mode on ios devices -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- Remove Tap Highlight on Windows Phone IE -->
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <!-- base css -->
+    <div th:replace="fragments/base-css :: base-css"></div>
+
+</head>
+
+<body class="mod-bg-1 mod-nav-link nav-function-fixed">
+    <div class="page-wrapper">
+        <div class="page-inner">
+            <aside th:replace="fragments/sidebar :: sidebar"> </aside>
+            <div class="page-content-wrapper">
+                <header th:replace="fragments/header :: header"></header>
+                <main id="js-page-content" role="main" class="page-content" th:style="'background-image:url(' + ${#authentication.principal.miMunicipio.urlFondoInterno} + ');'">
+                    <div class="subheader" style="margin-bottom: calc(1rem);">
+                        <h3 class="subheader-title">
+                            <i class="subheader-icon fas fa-address-book"></i> Cambio de Diseño general del REMTYS
+                        </h3>
+                    </div>
+                    <hr>
+                    <div class="row">
+                        <form id="imagen-form" autocomplete="off" role="form" enctype="multipart/form-data">
+                            <div id="target_div" style="display: none;">
+                                <input type="file" id="imagen-upload-file" name="file" accept="image/x-png">
+                            </div>
+                        </form>
+                        <div class="col-sm-6 col-lg-6 col-xl-6 order-sm-1 order-lg-1 order-xl-1">
+                            <strong>Logo del municipio (grande)</strong>
+                            <p>Debe medir aproximadamente 300px de ancho X 200px de alto</p>
+                            <div class="card mb-g rounded-top">
+                                <div class="row no-gutters row-grid">
+                                    <div class="col-12">
+                                        <div class="p-4">
+                                            <div class="d-flex flex-column align-items-center justify-content-center" style="width: 100%;height: 150px;">
+                                                <img id="lmg" th:src="@{/img/noimage.png}" style="width: 225px;height: 150px;" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="p-3 text-center">
+                                            <a href="javascript:mostrarModalImagen('lmg');" class="btn-link font-weight-bold">Cambiar imagen</a>
+                                            <a href="javascript:mostrarModalEliminarImagen('lmg');" class="btn-link font-weight-bold ml-4">Eliminar imagen</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6 col-xl-6 order-sm-2 order-lg-2 order-xl-2">
+                            <strong>Logo del municipio (pequeño)</strong>
+                            <p>Debe medir aproximadamente 150px de ancho X 100px de alto</p>
+                            <div class="card mb-g rounded-top">
+                                <div class="row no-gutters row-grid">
+                                    <div class="col-12">
+                                        <div class="p-4">
+                                            <div class="d-flex flex-column align-items-center justify-content-center" style="width: 100%;height: 150px;">
+                                                <img id="lmc" th:src="@{/img/noimage.png}" style="width: 150px;height: 100px;" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="p-3 text-center">
+                                            <a href="javascript:mostrarModalImagen('lmc');" class="btn-link font-weight-bold ">Cambiar imagen</a>
+                                            <a href="javascript:mostrarModalEliminarImagen('lmc');" class="btn-link font-weight-bold ml-4">Eliminar imagen</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6 col-xl-6 order-sm-3 order-lg-3 order-xl-3">
+                            <strong>Fondo inicio de sesión </strong>
+                            <p>Debe medir aproximadamente 1920px de ancho X 1200px de alto</p>
+                            <div class="card mb-g rounded-top">
+                                <div class="row no-gutters row-grid">
+                                    <div class="col-12">
+                                        <div class="p-4">
+                                            <div class="d-flex flex-column align-items-center justify-content-center" style="width: 100%;height: 150px;">
+                                                <img id="iis" th:src="@{/img/noimage.png}" style="width: 190px;height: 120px;" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="p-3 text-center">
+                                            <a href="javascript:mostrarModalImagen('iis');" class="btn-link font-weight-bold ">Cambiar imagen</a>
+                                            <a href="javascript:mostrarModalEliminarImagen('iis');" class="btn-link font-weight-bold ml-4">Eliminar imagen</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6 col-xl-6 order-sm-4 order-lg-4 order-xl-4">
+                            <strong>Fondo interior del sistema</strong>
+                            <p>Debe medir aproximadamente 1920px de ancho X 1200px de alto</p>
+                            <div class="card mb-g rounded-top">
+                                <div class="row no-gutters row-grid">
+                                    <div class="col-12">
+                                        <div class="p-4">
+                                            <div class="d-flex flex-column align-items-center justify-content-center" style="width: 100%;height: 150px;">
+                                                <img id="fis" th:src="@{/img/noimage.png}" style="width: 190px;height: 120px;" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="p-3 text-center">
+                                            <a href="javascript:mostrarModalImagen('fis');" class="btn-link font-weight-bold ">Cambiar imagen</a>
+                                            <a href="javascript:mostrarModalEliminarImagen('fis');" class="btn-link font-weight-bold ml-4">Eliminar imagen</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-12 col-xl-12 order-sm-5 order-lg-5 order-xl-5">
+                            <strong> Banner superior interno del sistema</strong>
+                            <p>Debe medir aproximadamente 1920px de ancho X 100px de alto</p>
+                            <div class="card mb-g rounded-top">
+                                <div class="row no-gutters row-grid">
+                                    <div class="col-12">
+                                        <div class="p-4">
+                                            <div class="d-flex flex-column align-items-center justify-content-center" style="width: 100%;height: 100px;">
+                                                <img id="bsi" th:src="@{/img/noimage.png}" style="width: 90%;height: 60px;" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="p-3 text-center">
+                                            <a href="javascript:mostrarModalImagen('bsi');" class="btn-link font-weight-bold ">Cambiar imagen</a>
+                                            <a href="javascript:mostrarModalEliminarImagen('bsi');" class="btn-link font-weight-bold ml-4">Eliminar imagen</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6 col-xl-6 order-sm-6 order-lg-6 order-xl-6">
+                            <strong>Icono de favoritos</strong>
+                            <p>Debe medir aproximadamente 20px de ancho X 20px de alto</p>
+                            <div class="card mb-g rounded-top">
+                                <div class="row no-gutters row-grid">
+                                    <div class="col-12">
+                                        <div class="p-4">
+                                            <div class="d-flex flex-column align-items-center justify-content-center" style="width: 100%;height: 150px;">
+                                                <img id="ifs" th:src="@{/img/noimage.png}" style="width: 40px;height: 40px;" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="p-3 text-center">
+                                            <a href="javascript:mostrarModalImagen('ifs');" class="btn-link font-weight-bold ">Cambiar imagen</a>
+                                            <a href="javascript:mostrarModalEliminarImagen('ifs');" class="btn-link font-weight-bold ml-4">Eliminar imagen</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="eliminar-imagen-modal" data-backdrop="static" data-keyboard="false">
+        <form id="eliminar-imagen-form" class="needs-validation">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Eliminar imagen</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel-content">
+                            <div class="form-row">
+                                <strong>¿Desea eliminar la imagen <span id="elementoEliminar"></span> ?</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" id="idEliminar" />
+                        <button id="cancelarEliminar" type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Cancelar</button>
+                        <button id="eliminar" class="btn btn-primary waves-effect waves-themed" type="submit">Eliminar</button>
+                        <button id="eliminarLoading" class="btn btn-info" type="button" disabled style="display: none;">
+                            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                            Eliminar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <footer th:replace="fragments/base-scripts :: base-scripts"></footer>
+    <script th:src="@{/js/diseno-general.js}"></script>
+</body>
+
+</html>

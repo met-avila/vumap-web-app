@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        Inicio
+    </title>
+    <meta name="description" content="Profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
+    <!-- Call App Mode on ios devices -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- Remove Tap Highlight on Windows Phone IE -->
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <!-- base css -->
+    <div th:replace="fragments/base-css :: base-css"></div>
+
+
+
+</head>
+
+<body class="mod-bg-1 mod-nav-link desktop chrome webkit pace-done blur">
+    <div class="page-wrapper">
+        <div class="page-inner">
+            <aside th:replace="fragments/sidebar :: sidebar"> </aside>
+            <div class="page-content-wrapper">
+                <header th:replace="fragments/header :: header"></header>
+                <main id="js-page-content" role="main" class="page-content" th:style="'background-image:url(' + ${#authentication.principal.miMunicipio.urlFondoInterno} + ');'">
+                    <div class="subheader" style="margin-bottom: calc(1rem);">
+                        <h3 class="subheader-title">
+                            <i class="subheader-icon fas fa-address-book"></i> Mi perfil
+                        </h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3 col-xl-3 order-lg-1 order-xl-1">
+                            <div class="card mb-g rounded-top">
+                                <div class="row no-gutters row-grid">
+                                    <div class="col-12">
+                                        <div class="d-flex flex-column align-items-center justify-content-center p-4">
+                                            <img class="rounded-circle mp-usuarioFoto" style="height: 150px;width: 150px;" />
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="p-3 text-center">
+                                            <a href="javascript:mostrarModalFoto();" class="btn-link font-weight-bold ">Cambiar imagen</a>
+                                            <form id="usuario-foto-form" autocomplete="off" role="form" enctype="multipart/form-data">
+                                                <div id="target_div" style="display: none;">
+                                                    <input type="file" id="usuario-foto-upload-file" name="file" accept="image/x-png,image/gif,image/jpeg">
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-xl-9 order-lg-2 order-xl-2">
+                            <div class="card mb-g rounded-top p-4">
+                                <form id="perfil-form">
+                                    <div class="panel-content">
+                                        <div class="form-row">
+                                            <div class="col-md-4 mb-3">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="mp-nombrePropio">Nombre propio</label>
+                                                    <input type="text" id="mp-nombrePropio" name="mp-nombrePropio" class="form-control" required>
+                                                    <div class="invalid-feedback"> Escriba su nombre propio.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="mp-apellidoPaterno">Apellido paterno</label>
+                                                    <input type="text" id="mp-apellidoPaterno" name="mp-apellidoPaterno" class="form-control" required>
+                                                    <div class="invalid-feedback">
+                                                        Escriba su apellido paterno.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="mp-apellidoMaterno">Apellido materno</label>
+                                                    <input type="text" id="mp-apellidoMaterno" name="mp-apellidoMaterno" class="form-control" required>
+                                                    <div class="invalid-feedback">
+                                                        Escriba su apellido materno.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-4 mb-3">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="mp-nombreUsuario">Nombre de usuario</label>
+                                                    <input type="text" id="mp-nombreUsuario" name="mp-nombreUsuario" class="form-control" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="mp-correo">Correo electrónico</label>
+                                                    <input type="email" id="mp-correo" name="mp-correo" class="form-control" required>
+                                                    <div class="invalid-feedback">
+                                                        Escriba un correo electrónico.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-4 mb-3">
+                                                <div class="form-group">
+                                                    <label class="form-label" for="mp-celular">Teléfono movil</label>
+                                                    <input maxlength="10" type="tel" id="mp-celular" name="mp-celular" class="form-control" required>
+                                                    <div class="invalid-feedback">
+                                                        Escriba un teléfono movil.
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-row">
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">Sistema asignado</label>
+                                                <input id="mp-nombreSistema" type="text" class="form-control" disabled>
+                                            </div>
+                                            <div class="col-md-6 mb-3">
+                                                <label class="form-label">Perfil </label>
+                                                <input id="mp-nombrePerfil" type="text" class="form-control" disabled>
+                                            </div>
+                                        </div>
+                                        <!-- <div class="form-row">
+                                            <div class="col-md-12 text-right">
+                                                <button id="guardarMiPerfil" class="btn btn-primary ml-auto waves-effect waves-themed" type="submit">Guardar mi perfil</button>
+
+                                                <button id="guardarMiPerfilLoading" class="btn btn-info" type="button" disabled style="display: none;">
+                                                    <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                                                    Guardar mi perfil
+                                                </button>
+                                            </div>
+                                        </div> -->
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <footer th:replace="fragments/base-scripts :: base-scripts"></footer>
+    <script th:src="@{/js/mi-perfil.js}"></script>
+</body>
+
+</html>

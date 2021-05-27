@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        Inicio
+    </title>
+    <meta name="description" content="Profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
+    <!-- Call App Mode on ios devices -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- Remove Tap Highlight on Windows Phone IE -->
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <!-- base css -->
+    <div th:replace="fragments/base-css :: base-css"></div>
+    <link rel="stylesheet " type="text/css " th:href="@{/css/dx-diagram.min.css}" />
+
+    <style>
+        .dxdi-canvas .item-selection-rect,
+        .dxdi-canvas .items-selection-rect {
+            stroke-width: 2px;
+            fill: rgba(6, 50, 133, 0.11);
+        }
+        
+        .small-select {
+            height: calc(1.5em + 0.75rem + 2px);
+            padding: 0.375rem 0.844rem;
+            font-size: 0.75rem;
+            line-height: 1.5;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+
+<body class="mod-bg-1 mod-nav-link nav-function-fixed">
+    <div class="page-wrapper">
+        <div class="page-inner">
+            <aside th:replace="fragments/sidebar :: sidebar"> </aside>
+            <div class="page-content-wrapper">
+                <header th:replace="fragments/header :: header"></header>
+                <main id="js-page-content" role="main" class="page-content" th:style="'background-image:url(' + ${#authentication.principal.miMunicipio.urlFondoInterno} + ');'">
+                    <div class="subheader" style="margin-bottom: calc(1rem);">
+                        <h3 class="subheader-title">
+                            <i class="subheader-icon fal fa-address-card"></i>
+                            <span class="nombreTramite"></span>
+                        </h3>
+                        <!-- <button title="Modificar actividad seleccionada" type="button" disabled class="editar btn btn-secondary btn-icon rounded-circle waves-effect waves-themed">
+                            <i class="fal fa-calendar-edit fs-md"></i>
+                        </button>
+                        <button title="Eliminar actividad seleccionada" type="button" disabled class="eliminar ml-2 btn btn-default btn-icon rounded-circle waves-effect waves-themed">
+                            <i class="fal fa-trash-alt"></i>
+                        </button> -->
+                        <!-- <button title="Guardar diagrama" type="button" class="guardarDiagrama ml-2 btn btn-default btn-icon rounded-circle waves-effect waves-themed">
+                            <i class="fal fa-save"></i>
+                        </button> -->
+                    </div>
+                    <div class="row">
+                        <div id="diagram" style="height: 600px; width: 100%;">
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+    <!-- <nav class="shortcut-menu d-none d-sm-block">
+        <a href="javascript:showModal()" class="agregar menu-item btn waves-effect waves-themed" title="Nueva actividad">
+            <i class="fal fa-plus"></i>
+        </a>
+    </nav> -->
+
+    <div class="modal fade" id="elemento-modal" data-backdrop="static" data-keyboard="false">
+        <form id="elemento-form" class="needs-validation">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 id="elemento-modal-title" class="modal-title">Detalle de actividad</h5>
+                    </div>
+                    <div class="modal-body" style="padding-top: 0.5rem;padding-bottom: 0.5rem;">
+                        <div class="panel-content">
+                            <div class="form-row">
+                                <div class="col-md-5 mb-2">
+                                    <label class="form-label" for="tipoActorFlujo">Actor</label>
+                                    <select id="tipoActorFlujo" name="tipoActorFlujo" class="small-select custom-select" required>
+                                    </select>
+                                </div>
+                                <div class="col-md-7 mb-2">
+                                    <label class="form-label" for="idActividadPredecesora">Actividad predecesora</label>
+                                    <select required id="idActividadPredecesora" name="idActividadPredecesora" class="custom-select small-select">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-2">
+                                    <label class="form-label" for="nombre">Nombre de actividad</label>
+                                    <input maxlength="250" type="text" class="form-control form-control-sm" id="nombre" name="nombre" required>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-3 mb-2">
+                                    <label class="form-label" for="tipoActividadFlujo">Tipo de actividad</label>
+                                    <select disabled id="tipoActividadFlujo" name="tipoActividadFlujo" class="small-select custom-select" required>
+                                    </select>
+                                </div>
+
+                                <div class="col-md-3 mb-2">
+                                    <label class="form-label" for="estatusActividadFlujo">Estatus dentro del flujo</label>
+                                    <select required id="estatusActividadFlujo" name="estatusActividadFlujo" class="small-select custom-select">
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-2">
+                                    <div class="form-group">
+                                        <label class="form-label" for="inputGroupSelect02">Dependencia del municipio que ejecuta la actividad</label>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input type="hidden" id="idDependencia">
+                                                <input required onfocus="showDependencias(); this.readOnly=true;" onblur="this.readOnly=false;" maxlength="250" type="text" class="form-control" id="dependencia" name="dependencia">
+                                                <div class="input-group-append ml-2" style="display: block;">
+                                                    <a id="btnMostrarDependencias" href="javascript:showDependencias();" class="btn btn-secondary btn-icon rounded-circle waves-effect waves-themed">
+                                                        <i class="fal fa-cog fs-md"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-3 mb-2">
+                                    <label class="form-label" for="duracion">Duración</label>
+                                    <input required maxlength="5" type="text" class="form-control form-control-sm" id="duracion" name="duracion" oncopy="return false;" onpaste="return false;" oncut="return false;">
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <label class="form-label" for="tipoDuracionFlujo">Tipo de duración&nbsp;</label>
+                                    <select required id="tipoDuracionFlujo" name="tipoDuracionFlujo" class="small-select custom-select">
+                                    </select>
+                                </div>
+                                <div class="col-md-3 mb-2">
+                                    <label class="form-label" for="idTipoDiasTys">Tipo de días</label>
+                                    <select id="idTipoDiasTys" name="idTipoDiasTys" class="small-select custom-select" required="required"><option value="" selected="">Selecciona una opción</option></select>
+                                </div>
+                                <div class="col-md-3 mb-2 d-flex align-items-center" style="margin-top: 1.7em;">
+                                    <div class="custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="requerida">
+                                        <label class="custom-control-label" for="requerida">Actividad requerida</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-3 mb-2 tipoDecisionContainer" style="display: none;">
+                                    <label class="form-label" for="tipoDuracionFlujo">Actividad para:</label>
+                                    <select id="tipoDecision" name="tipoDecision" class="small-select custom-select">
+                                        <option value="1">SI</option>
+                                        <option value="0">NO</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label" for="descripcion">Descripción</label>
+                                    <textarea maxlength="2000" style="height: 60px;resize: none;" type="text" class="form-control" id="descripcion" name="descripcion"></textarea>
+                                    <div class="invalid-feedback">
+                                        Escriba la descripción.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="cancelar" type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Cancelar</button>
+                        <button id="guardar" class="btn btn-primary waves-effect waves-themed" type="submit">Guardar</button>
+                        <button id="guardarLoading" class="btn btn-info" type="button" disabled style="display: none;">
+                            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal fade" id="eliminar-elemento-modal" data-backdrop="static" data-keyboard="false">
+        <form id="eliminar-elemento-form" class="needs-validation">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Eliminar actividad</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel-content">
+                            <div class="form-row">
+                                <strong>¿Desea eliminar la actividad <span id="elementoEliminar"></span> ?</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" id="idEliminar" />
+                        <button id="cancelarEliminar" type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Cancelar</button>
+                        <button id="eliminar" class="btn btn-primary waves-effect waves-themed" type="button">Eliminar</button>
+                        <button id="eliminarLoading" class="btn btn-info" type="button" disabled style="display: none;">
+                            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                            Eliminar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</body>
+
+<div th:replace="fragments/dependencias-modal :: dependencias-modal"></div>
+
+<script th:src="@{/js/vendors.bundle.js}"></script>
+<script th:src="@{/js/app.bundle.js}"></script>
+<script th:src="@{/js/toastr.js}"></script>
+<script th:src="@{/js/dx-diagram.min.js}"></script>
+<script th:src="@{/js/dx2020.all.js}"></script>
+<script th:src="@{/js/app.js}"></script>
+<script th:src="@{/js/ts-flujo.js}"></script>
+
+</body>
+
+</html>

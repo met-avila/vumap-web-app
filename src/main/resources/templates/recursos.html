@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        Inicio
+    </title>
+    <meta name="description" content="Profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
+    <!-- Call App Mode on ios devices -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- Remove Tap Highlight on Windows Phone IE -->
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <!-- base css -->
+    <div th:replace="fragments/base-css :: base-css"></div>
+    <style>
+        .note {
+            font-size: 10pt;
+            color: #484848;
+            margin-left: 9px;
+        }
+        
+        .note>span {
+            font-weight: 700
+        }
+    </style>
+</head>
+
+<body class="mod-bg-1 mod-nav-link nav-function-fixed">
+    <div class="page-wrapper">
+        <div class="page-inner">
+            <aside th:replace="fragments/sidebar :: sidebar"> </aside>
+            <div class="page-content-wrapper">
+                <header th:replace="fragments/header :: header"></header>
+                <main id="js-page-content" role="main" class="page-content" th:style="'background-image:url(' + ${#authentication.principal.miMunicipio.urlFondoInterno} + ');'">
+                    <div class="subheader" style="margin-bottom: calc(1rem);">
+                        <h3 class="subheader-title">
+                            <i class="subheader-icon fal fa-address-card"></i> Administración de recursos (archivos, videos o imágenes)
+                            <button onclick="$('#panelFiltro').slideToggle('fast')" type="button" class="btn btn-sm btn-default waves-effect waves-themed">Mostrar/ocultar filtros</button>
+                        </h3>
+                    </div>
+                    <div id="panelFiltro" class="row" style="display: none;">
+                        <div class="col-lg-12">
+                            <div class="card shadow-1 shadow-hover-5 mb-g">
+                                <div class="card-body p-3">
+                                    <div class="form-row">
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label" for="f-tipoRecurso">Tipo de recurso</label>
+                                            <select id="f-tipoRecurso" name="f-tipoRecurso" class="custom-select">
+                                                <option value="-1" selected>Selecciona una opci&oacute;n</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4 mb-3">
+                                            <label class="form-label" for="f-visibilidad">Visibilidad</label>
+                                            <select id="f-visibilidad" name="f-visibilidad" class="custom-select">
+                                                <option value="-1" selected>Selecciona una opci&oacute;n</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-4 mb-3">
+                                            <div class="form-group">
+                                                <label class="form-label" for="f-dependencia">Dependencia u organización<span class="text-danger">*</span></label>
+                                                <div class="form-group">
+                                                    <div class="input-group">
+                                                        <input type="hidden" id="f-idDependencia">
+                                                        <input onfocus="showDependenciasFiltro(); this.readOnly=true;" onblur="this.readOnly=false;" maxlength="250" type="text" class="form-control" id="f-dependencia" name="f-dependencia" required>
+                                                        <div class="input-group-append ml-2" style="display: block;">
+                                                            <a href="javascript:showDependenciasFiltro();" class="btn btn-secondary btn-icon rounded-circle waves-effect waves-themed">
+                                                                <i class="fal fa-cog fs-md"></i>
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-8 mb-3">
+                                            <label class="form-label" for="f-descripcion">Descripción</label>
+                                            <input maxlength="100" type="text" class="form-control" id="f-descripcion" name="f-descripcion">
+                                        </div>
+                                        <div class="col-md-4 mb-3 d-flex justify-content-end align-items-end">
+                                            <button onclick="limpiarFiltros()" class="btn btn-secondary waves-effect waves-themed mr-2" type="button">Limpiar filtros</button>
+                                            <button onclick="filtrar()" class="btn btn-primary waves-effect waves-themed" type="button">Filtrar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-xl-12 order-lg-1 order-xl-1">
+                            <div id="jqCards"></div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+    <nav class="shortcut-menu d-none d-sm-block">
+        <a href="javascript:showModal()" style="display: none;" class="agregar menu-item btn waves-effect waves-themed" title="Nueva categoría">
+            <i class="fal fa-plus"></i>
+        </a>
+    </nav>
+
+    <div class="modal fade" id="elemento-modal" data-backdrop="static" data-keyboard="false">
+        <form id="elemento-form" class="needs-validation">
+            <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 id="elemento-modal-title" class="modal-title">Nuevo recurso</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel-content">
+                            <div class="form-row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label" for="idTipoVisibilidad">Visibilidad <span class="text-danger">*</span></label>
+                                    <select id="idTipoVisibilidad" name="idTipoVisibilidad" class="custom-select" required>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <div class="form-group">
+                                        <label class="form-label" for="dependencia">Dependencia u organización<span class="text-danger">*</span></label>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input type="hidden" id="idDependencia">
+                                                <input onfocus="showDependencias(); this.readOnly=true;" onblur="this.readOnly=false;" maxlength="250" type="text" class="form-control" id="dependencia" name="dependencia" required>
+                                                <div class="input-group-append ml-2" style="display: block;">
+                                                    <a href="javascript:showDependencias();" class="btn btn-secondary btn-icon rounded-circle waves-effect waves-themed">
+                                                        <i class="fal fa-cog fs-md"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label" for="descripcion">Descripción<span class="text-danger">*</span></label>
+                                    <input maxlength="100" type="text" class="form-control" id="descripcion" name="descripcion" required>
+                                    <div class="invalid-feedback">
+                                        Escriba una descripción.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <span id="notaActualizarRecurso" class="note" style="display: none;"><strong>No seleccione un archivo si no desea reemplazar el existente</strong></span>
+                                <div style=" border: 1px solid #d3d3d3;margin: 20px 20px 0 20px;">
+                                    <div id="file-uploader"></div>
+                                    <span class="note">Tamaño máximo de archivo: <span>4 MB</span>.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="cancelar" type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Cancelar</button>
+                        <button id="guardar" class="btn btn-primary waves-effect waves-themed" type="submit">Guardar</button>
+                        <button id="guardarLoading" class="btn btn-info" type="button" disabled style="display: none;">
+                            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal fade" id="eliminar-elemento-modal" data-backdrop="static" data-keyboard="false">
+        <form id="eliminar-elemento-form" class="needs-validation">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Eliminar recurso</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel-content">
+                            <div class="form-row">
+                                <strong>¿Desea eliminar el recurso con descripción <span id="elementoEliminar"></span> ?</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" id="idEliminar" />
+                        <button id="cancelarEliminar" type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Cancelar</button>
+                        <button id="eliminar" class="btn btn-primary waves-effect waves-themed" type="submit">Eliminar</button>
+                        <button id="eliminarLoading" class="btn btn-info" type="button" disabled style="display: none;">
+                            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                            Eliminar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div th:replace="fragments/dependencias-modal :: dependencias-modal"></div>
+
+    <footer th:replace="fragments/base-scripts :: base-scripts"></footer>
+    <script th:src="@{/js/jqCards.1.2.js}"></script>
+    <script th:src="@{/js/recursos.js}"></script>
+
+</body>
+
+</html>

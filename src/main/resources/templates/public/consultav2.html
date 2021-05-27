@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+
+    <meta name="description" content="Profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
+    <!-- Call App Mode on ios devices -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- Remove Tap Highlight on Windows Phone IE -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <link rel="stylesheet" media="screen, print" th:href="@{/css/vendors.bundle.css}">
+    <link rel="stylesheet" media="screen, print" th:href="@{/css/app.bundle.css}">
+    <!-- Place favicon.ico in the root directory -->
+    <link rel=" apple-touch-icon " sizes="180x180 " th:href="@{/img/favicon/apple-touch-icon.png}">
+    <link rel="icon " type="image/png " sizes="32x32 " th:href="@{/img/favicon/favicon-32x32.png}">
+    <link rel="mask-icon" th:href="@{/img/favicon/safari-pinned-tab.svg}" color="#5bbad5">
+
+    <link id="icono" rel="icon " type="image/png " sizes="32x32 ">
+
+    <!-- Optional: page related CSS-->
+    <link rel="stylesheet " media="screen, print " th:href="@{/css/fa-brands.css}">
+    <link rel="stylesheet " media="screen, print " th:href="@{/css/fa-solid.css}">
+    <link rel="stylesheet " type="text/css " th:href="@{/css/dx2020.common.css}" />
+    <link rel="stylesheet " type="text/css " th:href="@{/css/dx2020.light.css}" />
+    <link rel="stylesheet " type="text/css " th:href="@{/css/pagination.css}" />
+
+    <style>
+        .paginationjs .paginationjs-pages {
+            float: right;
+        }
+        /* .accordion.accordion-hover .card-header:hover .card-title.collapsed {
+            color: #fff;
+            background-color: #8a888e;
+        }
+        
+        .accordion.accordion-hover .card-title:not(.collapsed) {
+            color: #fff;
+            background-color: #a7a7a7;
+        } */
+    </style>
+
+
+</head>
+
+<!-- <body class="mod-bg-1 mod-nav-link nav-function-fixed"> -->
+
+<body class="mod-bg-1 mod-nav-link nav-function-fixed desktop chrome webkit pace-done blur">
+    <div class="pace  pace-inactive">
+        <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+            <div class="pace-progress-inner"></div>
+        </div>
+        <div class="pace-activity"></div>
+    </div>
+    <div class="page-wrapper">
+        <div class="page-inner">
+            <div class="page-content-wrapper" style="padding-left: 0px;">
+
+                <main id="js-page-content" role="main" class="page-content">
+                    <div class="subheader" style="margin-bottom: calc(0.5rem);">
+                        <h3 class="subheader-title text-center tipoRemtysU"></h3>
+                    </div>
+                    <div class="subheader" style="margin-bottom: calc(1rem);">
+                        <h3 class="subheader-title text-center">
+                            Consulta los trámites y servicios que tiene tu municipio
+                        </h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-xl-12">
+                            <div class="card mb-g rounded-top p-4">
+                                <div class="panel-content">
+                                    <h4>
+                                        <small class="mb-3">
+                                            En este portal puedes consultar y realizar trámites de manera rápida, sin la necesidad de hacer filas y perder tu tiempo; desde tu
+            computadora, móvil o tableta. No tendrás que buscar información en otros sitios de gobierno desactualizados y poco accesibles. En
+            trámites.mimunicipio.gob.mx tienes acceso a los trámites más solicitados de la Administración Pública Municipal, y a toda la información que
+            como usuario necesitas para realizarlos. Como gobierno, sabemos que tenemos la obligación de innovar la forma en la que operan nuestras
+            instituciones, adaptándonos a las expectativas digitales de la ciudad y respondiendo eficientemente a sus demandas.
+                                        </small>
+                                    </h4>
+                                    <hr style="border-bottom: 2px solid #666666;">
+                                    <div class="row mb-4">
+                                        <div class="col-6">
+                                            <div style="display: block;">
+                                                <h1 class="subheader-title">
+                                                    <i class="fal fa-file-search"></i> Buscador de trámites y servicios
+
+                                                </h1>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row" id="panelFiltro">
+                                        <div class="col-lg-12">
+                                            <div class="form-row">
+                                                <div class="col-md-8 mb-3">
+                                                    <div class="input-group">
+                                                        <input maxlength="254" type="text" class="form-control form-control-lg rounded-pill" id="f-nombre" name="f-nombre" placeholder="¿Qué estas buscando? Escribe aquí el nombre parcial o completo del trámite o servicio">
+                                                        <div class="input-group-append">
+                                                            <span id="deleteSearchText" class="input-group-text" style="display: none; cursor: pointer;margin-left: -51px;z-index: 7;background-color:transparent; border: 0px;border-radius: 0px;"><i class="fal fa-times fa-2x"></i></span>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 mb-3 d-flex align-items-center">
+                                                    <button onclick="filtrar()" class="mr-2 btn btn-primary waves-effect waves-themed" type="button">Buscar</button>
+                                                    <button onclick="mostrarMasfiltros()" class="mr-2 btn btn-secondary waves-effect waves-themed" type="button">Más filtros</button>
+                                                    <button onclick="limpiarFiltros()" class="mr-2 btn btn-primary waves-effect waves-themed" type="button">Limpiar</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-4">
+                                        <div class="col-12">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        <div id="ts-pagination"></div>
+                                                    </td>
+                                                    <td style="width: 20px;"></td>
+                                                    <td>
+                                                        <h4 style="margin-top:7px;">Encontrados: <strong id="tsEncontrados">0</strong></h4>
+                                                    </td>
+                                                </tr>
+                                            </table>
+
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12 col-xl-12 order-lg-1 order-xl-1">
+                                            <div id="dependenciasContainer" class="accordion accordion-outline">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+            </div>
+            </main>
+        </div>
+    </div>
+    </div>
+
+    <div class="modal fade" id="filtros-modal" data-backdrop="static" data-keyboard="false">
+        <form id="filtros-form" class="needs-validation">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Filtros</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"><i class="fal fa-times"></i></span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel-content">
+                            <div class="form-row">
+                                <div class="col-md-4">
+                                    Seleccione los tipos:
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-row">
+                                        <div class="col-md-4 mb-3 d-flex align-items-center">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="tsTramite" name="tsTramite">
+                                                <label class="custom-control-label" for="tsTramite">Trámite</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mb-3 d-flex align-items-center">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="tsServicio" name="tsServicio">
+                                                <label class="custom-control-label" for="tsServicio">Servicio</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-12 mb-1">
+                                    <label class="form-label" for="addPalabraRelacionada">Indique palabras relacionadas:</label>
+                                    <div class="input-group input-group-sm">
+                                        <input type="text" class="form-control" id="palabraRelacionada" placeholder="Escriba una palabra">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary waves-effect waves-themed" type="button" id="addPalabraRelacionada">Agregar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <div class="form-group">
+                                        <div id="palabrasRelacionadas" name="palabrasRelacionadas" style="cursor: default;border: 0px solid #ddd;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-12 mb-1">
+                                    <label class="form-label" for="addCategoria">Indique una o más categorías:</label>
+                                    <div class="input-group input-group-sm">
+                                        <select id="categorias" name="categorias" class="custom-select">
+                                        </select>
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary waves-effect waves-themed" type="button" id="addCategoria">Agregar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <div class="form-group">
+                                        <div id="categoriasSeleccionadas" name="categoriasSeleccionadas" style="cursor: default;border: 0px solid #ddd;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-12 mb-1">
+                                    <label class="form-label" for="addDependencia">Indique una o más secretarías, dependencias o áreas:</label>
+                                    <div class="input-group input-group-sm">
+                                        <input type="hidden" id="idDependencia">
+                                        <input placeholder="De click aquí para seleccionar" onfocus="showDependencias(); this.readOnly=true;" onblur="this.readOnly=false;" maxlength="250" type="text" class="form-control" id="dependencia" name="dependencia">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary waves-effect waves-themed" type="button" id="addDependencia">Agregar</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <div class="form-group">
+                                        <div id="dependenciasSeleccionadas" name="dependenciasSeleccionadas" style="cursor: default;border: 0px solid #ddd;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="form-row">
+                                <div class="col-md-4">
+                                    Canal de Atencion:
+                                </div>
+                                <div class="col-md-8">
+                                    <div class="form-row">
+                                        <div class="col-md-4 mb-3 d-flex align-items-center">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="enLinea" name="enLinea">
+                                                <label class="custom-control-label" for="enLinea">En linea</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mb-3 d-flex align-items-center">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="appMovil" name="appMovil">
+                                                <label class="custom-control-label" for="appMovil">App Movil</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4 mb-3 d-flex align-items-center">
+                                            <div class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" id="presencial" name="presencial">
+                                                <label class="custom-control-label" for="presencial">Prensencial</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="limpiarFiltrosCD" type="button" class="btn btn-secondary waves-effect waves-themed">Limpiar</button>
+                        <button id="aplicarFiltrosCD" class="btn btn-primary waves-effect waves-themed" type="button">Aplicar filtros</button>
+                        <button id="aplicarFiltrosCDLoading" class="btn btn-info" type="button" disabled style="display: none;">
+                            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                            Aplicar filtros
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div th:replace="fragments/dependencias-modal :: dependencias-modal"></div>
+
+    <script th:src="@{/js/vendors.bundle.js}"></script>
+    <script th:src="@{/js/toastr.js}"></script>
+    <script th:src="@{/js/dx2020.all.js}"></script>
+    <script th:src="@{/js/jqCards.1.2.js}"></script>
+    <script th:src="@{/js/pagination.min.js}"></script>
+    <script th:src="@{/js/public/app-public.js}"></script>
+    <script th:src="@{/js/public/consultav2.js}"></script>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        window.MRM_REMTYS_API_URL = /*[[${remtysApiUrl}]]*/ 'default';
+        window.MRM_REMTYS_APP_URL = /*[[${remtysAppUrl}]]*/ 'default';
+        /*]]>*/
+    </script>
+</body>
+
+</html>

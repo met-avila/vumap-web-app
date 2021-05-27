@@ -1,0 +1,55 @@
+<div>
+    <div class="row">
+        <div class="card mb-g rounded-top p-6 col-sm-12">
+            <div class="form-row">
+                <h5>SEGUIMIENTO</h5>
+            </div>
+            <div id="seguimientoContainer" class="form-row mb-3">
+            </div>
+        </div>
+    </div>
+    <button style="display: none;" id="guardar" class="btn btn-primary waves-effect waves-themed" type="button">Guardar</button>
+</div>
+
+
+<nav class="shortcut-menu d-none d-sm-block">
+    <a href="javascript:mostrarModalSeguimiento(null)" class="menu-item btn waves-effect waves-themed agregar-seguimiento-btn" title="Agregar seguimiento" style="display: none;">
+        <i class="fal fa-plus"></i>
+    </a>
+</nav>
+
+<div class="modal fade" id="elemento-modal" data-backdrop="static" data-keyboard="false">
+    <form id="elemento-form" class="needs-validation">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="elemento-modal-title" class="modal-title">Agregar seguimiento</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-content">
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label" for="idEstatus">Estatus<span class="text-danger">*</span></label>
+                                <select id="idEstatus" name="idEstatus" class="custom-select" required>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label" for="descripcion">Descripción<span class="text-danger">*</span></label>
+                                <textarea required maxlength="2000" style="height: 150px;resize: none;" type="text" class="form-control" id="descripcion" name="descripcion"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="cancelarSeguimiento" type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Cancelar</button>
+                    <button id="guardarSeguimiento" class="btn btn-primary waves-effect waves-themed" type="submit">Guardar</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="../js/t-seguimiento.js"></script>

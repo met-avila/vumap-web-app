@@ -1,0 +1,55 @@
+<aside th:fragment="sidebar" class="page-sidebar">
+    <div class="page-logo p-0">
+        <a th:href="@{/}" class="w-100 page-logo-link press-scale-down d-flex align-items-center position-relative" style="max-width: 100%;margin-left: calc(50% - 50px);">
+            <img th:src="${#authentication.principal.miMunicipio.urlLogoChico}" alt="SmartAdmin WebApp" aria-roledescription="logo" style="height: 60px;">
+            <span class="position-absolute text-white opacity-50 small pos-top pos-right mr-2 mt-n2"></span>
+            <i class="fal fa-angle-down d-inline-block ml-1 fs-lg color-primary-300"></i>
+        </a>
+    </div>
+
+    <nav id="js-primary-nav" class="primary-nav" role="navigation">
+        <div class="info-card" style="display: none;">
+            <img class="mp-usuarioFoto profile-image rounded-circle" />
+            <div class="info-card-text">
+                <a href="#" class="d-flex align-items-center text-white">
+
+                    <span class="text-truncate text-truncate-sm d-inline-block mp-usuarioFullName">
+                        </span>
+                </a>
+                <span class="d-inline-block text-truncate text-truncate-sm mp-usuarioPerfil"></span>
+            </div>
+            <img src="https://www.gotbootstrap.com/themes/smartadmin/4.0.1/img/card-backgrounds/cover-2-lg.png" class="cover" alt="cover">
+
+        </div>
+        <ul id="js-nav-menu" class="nav-menu">
+            <!-- <li th:each="menuItem : ${#authentication.principal.usuario.perfil.menus}" th:attr="id=${menuItem.href}">
+                <a th:attr="title=${menuItem.nombre},href=(${menuItem.href !='#'})?(${#authentication.principal.config.remtysAppUrl}+${menuItem.href}):'#'">
+                    <i th:class="${menuItem.icono}"></i>
+                    <span class="nav-link-text" th:text="${menuItem.nombre}"></span>
+                </a>
+                <ul th:if="${not #arrays.isEmpty(menuItem.menus)}" th:include="fragments/sidebar-menu-item :: sidebar-menu-item" th:with="menuItemsList=${menuItem.menus}"></ul>
+            </li> -->
+            <li id="/solicitantes">
+                <a title="Solicitantes" href="/solicitantes" class=" waves-effect waves-themed">
+                    <i class="fal fa-coins"></i>
+                    <span class="nav-link-text">Solicitantes</span>
+                </a>
+
+            </li>
+        </ul>
+        <div class="filter-message js-filter-message bg-success-600"></div>
+    </nav>
+
+    <script th:inline="javascript">
+        /*<![CDATA[*/
+        window.MRM_TOKEN = /*[[${#authentication.principal.token}]]*/ 'default';
+        window.MRM_USUARIO = /*[[${#authentication.principal.usuario}]]*/ 'default';
+        window.MRM_USERS_API_URL = /*[[${#authentication.principal.config.usersApiUrl}]]*/ 'default';
+        window.MRM_REMTYS_API_URL = /*[[${#authentication.principal.config.remtysApiUrl}]]*/ 'default';
+        window.MRM_SECURITY_API_URL = /*[[${#authentication.principal.config.securityApiUrl}]]*/ 'default';
+        window.MRM_NOTIFICATIONS_API_URL = /*[[${#authentication.principal.config.notificationsApiUrl}]]*/ 'default';
+        window.MRM_REMTYS_APP_URL = /*[[${#authentication.principal.config.remtysAppUrl}]]*/ 'default';
+        window.MRM_REMTYS_SETTINGS = /*[[${#authentication.principal.miMunicipio.settings}]]*/ 'default';
+        /*]]>*/
+    </script>
+</aside>

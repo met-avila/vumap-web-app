@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        Inicio
+    </title>
+    <meta name="description" content="Profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
+    <!-- Call App Mode on ios devices -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- Remove Tap Highlight on Windows Phone IE -->
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <!-- base css -->
+    <div th:replace="fragments/base-css :: base-css"></div>
+    <link rel="stylesheet" media="screen, print" th:href="@{/css/formplugins/select2/select2.bundle.css}">
+    <link rel="stylesheet" th:href="@{/css/ol/ol.css}">
+
+    <style>
+        .sticky {
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+        
+        .bg-gradient {
+            background-color: #00d2ff;
+            background-image: linear-gradient(to right, #00d2ff 0%, #3a7bd5 100%);
+            box-shadow: 2px 2px 10px rgba(57, 123, 213, 0.36)
+        }
+        
+        .col-custom {
+            text-align: center;
+            width: 11.1111%;
+        }
+        
+        .icon-color-disabled {
+            pointer-events: none;
+            background: #98cbff;
+            border-color: #98cbff;
+        }
+        
+        .icon-color-flash {
+            pointer-events: none;
+            background: #524f84;
+            border-color: #524f84;
+        }
+        
+        .icon-top-message {
+            margin: 0px;
+        }
+    </style>
+</head>
+
+<body class="mod-bg-1 mod-nav-link nav-function-fixed">
+    <div class="page-wrapper">
+        <div class="page-inner">
+            <aside th:replace="fragments/sidebar :: sidebar"> </aside>
+            <div class="page-content-wrapper">
+                <header th:replace="fragments/header :: header"></header>
+                <main id="js-page-content" role="main" class="page-content" th:style="'background-image:url(' + ${#authentication.principal.miMunicipio.urlFondoInterno} + ');'">
+                    <div class="subheader" style="margin-bottom: calc(0.5rem);">
+                        <div class="row w-100">
+                            <div class="col-8">
+                                <h3 class="subheader-title">
+                                    Gestion del trámite o servicio
+                                </h3>
+                            </div>
+                            <div class="col-4 text-right">
+                                <span class="p-2 badge badge-info rounded-pill nombreEstatus"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <h3 id="nombreTS" class="col-12 text-center"></h3>
+                    </div>
+                    <div class="col-12 order-lg-1 order-xl-1">
+                        <div id="sectionsContainer" class="card mb-g rounded-top p-4" style="padding-bottom: 1rem !important;">
+                            <div class="panel-content">
+                                <!-- <div class="form-row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label" for="secciones">Seleccione la sección que se desea gestionar</label>
+                                        <select id="secciones" name="secciones" class="custom-select">
+                                        </select>
+                                    </div>
+                                    <div class="col-md-6 mb-3 d-flex align-items-end">
+
+                                    </div>
+                                </div> -->
+
+                                <div class="form-row mt-5 mb-1">
+                                    <div class="col-12 mb-3">
+                                        <div style="height: 19px" class="progress rounded-pill">
+                                            <div id="icons-steps-progress" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 0%" class="progress-bar rounded-pill bg-gradient"></div>
+                                        </div>
+                                    </div>
+                                    <div class="col-12" style="margin-top: -63px;">
+                                        <div id="icons-steps" style="display: flex;">
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="frame-wrap">
+                                    <div class="demo text-right">
+                                        <button id="guardarSeccion" class="btn btn-sm btn-primary waves-effect waves-themed" type="submit" style="display: none;">Guardar sección</button>
+                                        <button id="guardarSeccionLoading" class="btn btn-sm btn-info" type="button" disabled style="display: none;">
+                                            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                                            Guardar sección
+                                        </button>
+                                        <!-- <button id="irSeccionSiguiente" disabled type="button" class="btn btn-sm btn-secondary waves-effect waves-themed">Ir a la sección siguiente</button> -->
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="col-12 order-lg-2 order-xl-2 contenidoSeccion" style="padding: 0px;">
+                            <div class="card mb-g rounded-top p-4">
+                                <div id="seccion-content" class="panel-content">
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+
+    <div th:replace="fragments/dependencias-modal :: dependencias-modal"></div>
+    <div th:replace="fragments/recursos-modal :: recursos-modal"></div>
+    <footer th:replace="fragments/base-scripts :: base-scripts"></footer>
+    <script th:src="@{/js/formplugins/select2/select2.bundle.js}"></script>
+    <script th:src="@{/js/formplugins/inputmask/inputmask.bundle.js}"></script>
+
+    <script th:src="@{/js/ol/ol.js}"></script>
+    <script th:src="@{/js/jqCards.1.2.js}"></script>
+    <script th:src="@{/js/tramite-servicio.js}"></script>
+</body>
+
+</html>

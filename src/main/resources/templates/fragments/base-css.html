@@ -1,0 +1,63 @@
+<head th:fragment="base-css">
+    <meta charset="utf-8">
+
+    <meta name="description" content="Profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
+    <!-- Call App Mode on ios devices -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- Remove Tap Highlight on Windows Phone IE -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <link rel="stylesheet" media="screen, print" th:href="@{/css/vendors.bundle.css}">
+    <link rel="stylesheet" media="screen, print" th:href="@{/css/app.bundle.css}">
+    <!-- Place favicon.ico in the root directory -->
+    <link rel=" apple-touch-icon " sizes="180x180 " th:href="@{/img/favicon/apple-touch-icon.png}">
+
+
+    <link rel="icon " type="image/png " sizes="32x32 " th:href="${#authentication.principal.miMunicipio.urlFaveIcon}">
+
+
+    <link rel="mask-icon" th:href="@{/img/favicon/safari-pinned-tab.svg}" color="#5bbad5">
+    <link rel="stylesheet" th:href="@{/css/toastr.css}">
+
+    <!-- Optional: page related CSS-->
+    <link rel="stylesheet " media="screen, print " th:href="@{/css/fa-brands.css}">
+    <link rel="stylesheet " media="screen, print " th:href="@{/css/fa-solid.css}">
+
+    <link rel="stylesheet " type="text/css " th:href="@{/css/dx2020.common.css}" />
+    <link rel="stylesheet " type="text/css " th:href="@{/css/dx2020.light.css}" />
+
+    <!-- <style>
+        #js-page-content {
+            background-color: #f9f9f9;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            background-size: cover;
+            background-size: 100% 100%
+        }
+    </style> -->
+
+    <th:block th:if="${#authentication.principal.miMunicipio.settings}!=null and ${#authentication.principal.miMunicipio.settings.themeSettings}!=null and ${#authentication.principal.miMunicipio.settings.themeSettings.themeURL}!=''">
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            window.APP_THEME_URL = /*[[${#authentication.principal.miMunicipio.settings.themeSettings.themeURL}]]*/ '';
+            window.MRM_REMTYS_APP_URL = /*[[${#authentication.principal.config.remtysAppUrl}]]*/ 'default';
+            /*]]>*/
+
+            var cssfile = document.createElement('link');
+            cssfile.id = 'mytheme';
+            cssfile.rel = 'stylesheet';
+            cssfile.href = MRM_REMTYS_APP_URL + '/' + window.APP_THEME_URL;
+            document.getElementsByTagName('head')[0].appendChild(cssfile);
+        </script>
+    </th:block>
+
+
+    <style>
+        .nav-function-fixed:not(.nav-function-top) .page-sidebar .slimScrollDiv {
+            height: 100% !important;
+        }
+    </style>
+
+</head>

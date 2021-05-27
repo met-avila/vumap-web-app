@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        Inicio
+    </title>
+    <meta name="description" content="Profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
+    <!-- Call App Mode on ios devices -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- Remove Tap Highlight on Windows Phone IE -->
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <!-- base css -->
+    <div th:replace="fragments/base-css :: base-css"></div>
+    <link rel="stylesheet " type="text/css " th:href="@{/css/dx-diagram.min.css}" />
+
+
+    <style>
+        .dxdi-canvas .item-selection-rect,
+        .dxdi-canvas .items-selection-rect {
+            stroke-width: 2px;
+            fill: rgba(6, 50, 133, 0.11);
+        }
+    </style>
+</head>
+
+<body class="mod-bg-1 mod-nav-link nav-function-fixed">
+    <div class="page-wrapper">
+        <div class="page-inner">
+            <aside th:replace="fragments/sidebar :: sidebar"> </aside>
+            <div class="page-content-wrapper">
+                <header th:replace="fragments/header :: header"></header>
+                <main id="js-page-content" role="main" class="page-content" th:style="'background-image:url(' + ${#authentication.principal.miMunicipio.urlFondoInterno} + ');'">
+                    <div class="subheader" style="margin-bottom: calc(1rem);">
+                        <h3 class="subheader-title">
+                            <i class="subheader-icon fal fa-address-card"></i> Flujo interno de Tramites/Servicios
+                        </h3>
+                        <button style="display: none;" title="Eliminar perfil seleccionado" type="button" class="eliminar ml-2 btn btn-danger btn-icon rounded-circle waves-effect waves-themed">
+                            <i class="fal fa-trash-alt"></i>
+                        </button>
+                    </div>
+
+                    <div class="row mt-0">
+                        <div class="col-12">
+                            <h4>
+                                Para cambiar este flujo no deben existir tramites o servicios en edición
+                                <br>Para modificar este flujo todos los tramites o servicos deben estar Caducados o Publicados.
+                            </h4>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div id="diagram" style="height: 600px; width: 100%;">
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <nav class="shortcut-menu d-none d-sm-block">
+        <a href="javascript:void(0);" class="agregar menu-item btn waves-effect waves-themed" title="Agregar perfil a flujo interno" style="display: none;">
+            <i class="fal fa-plus"></i>
+        </a>
+    </nav>
+
+    <div class="modal fade" id="elemento-modal" data-backdrop="static" data-keyboard="false">
+        <form id="elemento-form" class="needs-validation">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Agregar perfil a flujo interno</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel-content">
+                            <div class="form-group">
+                                <label class="form-label" for="perfilFlujo">Perfil</label>
+                                <select class="form-control" id="perfilFlujo">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="cancelar" type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Cancelar</button>
+                        <button id="guardarElemento" class="btn btn-primary waves-effect waves-themed" type="submit">Agregar</button>
+                        <button id="guardarElementoLoading" class="btn btn-info" type="button" disabled style="display: none;">
+                            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                            Agregar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal fade" id="eliminar-elemento-modal" data-backdrop="static" data-keyboard="false">
+        <form id="eliminar-elemento-form" class="needs-validation">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Eliminar perfil de flujo interno</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel-content">
+                            <div class="form-row">
+                                <strong>¿Desea eliminar el perfil <span id="elementoEliminar"></span> del flujo interno?</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" id="idEliminar" />
+                        <button id="cancelarEliminar" type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Cancelar</button>
+                        <button id="eliminar" class="btn btn-primary waves-effect waves-themed" type="submit">Eliminar</button>
+                        <button id="eliminarLoading" class="btn btn-info" type="button" disabled style="display: none;">
+                            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                            Eliminar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <script th:src="@{/js/dx-diagram.min.js}"></script>
+    <footer th:replace="fragments/base-scripts :: base-scripts"></footer>
+    <script th:src="@{/js/flujo-interno.js}"></script>
+
+</body>
+
+</html>

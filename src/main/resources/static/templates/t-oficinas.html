@@ -1,0 +1,159 @@
+<div>
+    <ul id="jqCards" style="padding: 0px;"></ul>
+    <button style="display: none;" id="guardar" class="btn btn-primary waves-effect waves-themed" type="button">Guardar</button>
+</div>
+
+
+
+
+
+<nav class="shortcut-menu d-none d-sm-block">
+    <a href="javascript:showModal(null)" class="menu-item btn waves-effect waves-themed nuevo-oficina-btn" title="Nueva oficina" style="display: none;">
+        <i class="fal fa-plus"></i>
+    </a>
+</nav>
+
+<div class="modal fade" id="elemento-modal" data-backdrop="static" data-keyboard="false">
+    <form id="elemento-form" class="needs-validation">
+        <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="elemento-modal-title" class="modal-title">Nueva oficina</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-content">
+                        <div class="form-row">
+                            <div class="col-md-4 mb-2">
+                                <label class="form-label" for="nombre">Oficina<span class="text-danger">*</span></label>
+                                <input maxlength="250" type="text" class="form-control" id="nombre" name="nombre" required>
+                                <div class="invalid-feedback">
+                                    Escriba un nombre para la oficina
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <label class="form-label" for="titular">Nombre del titular de la oficina<span class="text-danger">*</span></label>
+                                <input maxlength="250" type="text" class="form-control" id="titular" name="titular" required>
+                                <div class="invalid-feedback">
+                                    Escriba un nombre de titular de la oficina.
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <label class="form-label" for="horariosAtencion">Horario y días de atención<span class="text-danger">*</span></label>
+                                <input maxlength="250" type="text" class="form-control" id="horariosAtencion" name="horariosAtencion" required>
+                                <div class="invalid-feedback">
+                                    Escriba los horarios y días de atención.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-4 mb-2">
+                                <input id="claveMun" type="hidden">
+                                <label class="form-label" for="nombreMunicipio">Municipio</label>
+                                <input maxlength="100" type="text" class="form-control" id="nombreMunicipio" name="nombreMunicipio" disabled>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <label class="form-label" for="colonia">Colonia<span class="text-danger">*</span></label>
+                                <input maxlength="100" type="text" class="form-control" id="colonia" name="colonia" required>
+                                <div class="invalid-feedback">
+                                    Escriba un nombre para la colonia.
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <label class="form-label" for="calle">Calle<span class="text-danger">*</span></label>
+                                <input maxlength="100" type="text" class="form-control" id="calle" name="calle" required>
+                                <div class="invalid-feedback">
+                                    Escriba un nombre para la calle.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="col-md-4 mb-2">
+                                <label class="form-label" for="codigoPostal">Código postal<span class="text-danger">*</span></label>
+                                <input maxlength="5" type="text" class="form-control" id="codigoPostal" name="codigoPostal" required>
+                                <div class="invalid-feedback">
+                                    Escriba un código postal.
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <label class="form-label" for="numExterior">Número exterior</label>
+                                <input maxlength="20" type="text" class="form-control" id="numExterior" name="numExterior">
+                            </div>
+                            <div class="col-md-4 mb-2">
+                                <label class="form-label" for="numInterior">Número interior</label>
+                                <input maxlength="20" type="text" class="form-control" id="numInterior" name="numInterior">
+                            </div>
+                        </div>
+
+                        <div class="form-row mb-2">
+                            <div id="map" style="height:180px;width: 100%;"></div>
+                        </div>
+
+
+
+                        <div class="form-row">
+                            <div class="col-md-1">
+                                <label class="form-label" for="lada">Lada</label>
+                                <input maxlength="5" type="text" class="form-control" id="lada" name="lada">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label" for="telefonos">Teléfonos</label>
+                                <input maxlength="250" type="text" class="form-control" id="telefonos" name="telefonos">
+                            </div>
+                            <div class="col-md-1">
+                                <label class="form-label" for="extension">Exts.</label>
+                                <input maxlength="5" type="text" class="form-control" id="extension" name="extension">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label" for="fax">Fax</label>
+                                <input maxlength="250" type="text" class="form-control" id="fax" name="fax">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label" for="email">Correo electrónico</label>
+                                <input maxlength="250" type="email" class="form-control" id="email" name="email">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="cancelar" type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Cancelar</button>
+                    <button id="guardar" class="btn btn-primary waves-effect waves-themed" type="submit">Guardar</button>
+                    <button id="guardarLoading" class="btn btn-info" type="button" disabled style="display: none;">
+                        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                        Guardar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal fade" id="eliminar-elemento-modal" data-backdrop="static" data-keyboard="false">
+    <form id="eliminar-elemento-form" class="needs-validation">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Eliminar procedimiento</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-content">
+                        <div class="form-row">
+                            <strong>¿Desea eliminar el procedimiento número <span id="elementoEliminar"></span> ?</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" id="idEliminar" />
+                    <button id="cancelarEliminar" type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Cancelar</button>
+                    <button id="eliminar" class="btn btn-primary waves-effect waves-themed" type="submit">Eliminar</button>
+                    <button id="eliminarLoading" class="btn btn-info" type="button" disabled style="display: none;">
+                        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                        Eliminar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="../js/t-oficinas.js"></script>

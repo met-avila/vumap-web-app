@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        Inicio
+    </title>
+    <meta name="description" content="Profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
+    <!-- Call App Mode on ios devices -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- Remove Tap Highlight on Windows Phone IE -->
+    <meta name="msapplication-tap-highlight" content="no">
+
+    <!-- base css -->
+    <div th:replace="fragments/base-css :: base-css"></div>
+    <link rel="stylesheet " type="text/css " th:href="@{/css/dx-diagram.min.css}" />
+
+    <style>
+        .dxdi-canvas .item-selection-rect,
+        .dxdi-canvas .items-selection-rect {
+            stroke-width: 2px;
+            fill: rgba(6, 50, 133, 0.11);
+        }
+    </style>
+</head>
+
+<body class="mod-bg-1 mod-nav-link nav-function-fixed">
+    <div class="page-wrapper">
+        <div class="page-inner">
+            <aside th:replace="fragments/sidebar :: sidebar"> </aside>
+            <div class="page-content-wrapper">
+                <header th:replace="fragments/header :: header"></header>
+                <main id="js-page-content" role="main" class="page-content" th:style="'background-image:url(' + ${#authentication.principal.miMunicipio.urlFondoInterno} + ');'">
+                    <div class="subheader" style="margin-bottom: calc(1rem);">
+                        <h3 class="subheader-title">
+                            <i class="subheader-icon fal fa-address-card"></i> Estructura municipal (organigrama general)
+                        </h3>
+                        <button title="Modificar dependencia seleccionada" type="button" disabled class="editar btn btn-secondary btn-icon rounded-circle waves-effect waves-themed">
+                            <i class="fal fa-calendar-edit fs-md"></i>
+                        </button>
+                        <button title="Eliminar dependencia seleccionada" type="button" disabled class="eliminar ml-2 btn btn-danger btn-icon rounded-circle waves-effect waves-themed">
+                            <i class="fal fa-trash-alt"></i>
+                        </button>
+                    </div>
+                    <div class="row">
+                        <div id="diagram" style="height: 600px; width: 100%;">
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+    <nav class="shortcut-menu d-none d-sm-block">
+        <a href="javascript:showModal()" style="display: none;" class="agregar menu-item btn waves-effect waves-themed" title="Nueva dependencia/organismo">
+            <i class="fal fa-plus"></i>
+        </a>
+    </nav>
+
+    <div class="modal fade" id="elemento-modal" data-backdrop="static" data-keyboard="false">
+        <form id="elemento-form" class="needs-validation">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 id="elemento-modal-title" class="modal-title">Detalles de la dependencia u organismo</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel-content">
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <div class="form-group">
+                                        <label class="form-label" for="inputGroupSelect02">Dependencia u organización padre</label>
+                                        <div class="form-group">
+                                            <div class="input-group">
+                                                <input type="hidden" id="idDependencia">
+                                                <input onfocus="showDependencias(); this.readOnly=true;" onblur="this.readOnly=false;" maxlength="250" type="text" class="form-control" id="dependencia" name="dependencia">
+                                                <div class="input-group-append ml-2" style="display: block;">
+                                                    <a href="javascript:showDependencias();" class="btn btn-secondary btn-icon rounded-circle waves-effect waves-themed">
+                                                        <i class="fal fa-cog fs-md"></i>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label" for="nombre">Nombre de la dependencia u organización<span class="text-danger">*</span></label>
+                                    <input maxlength="250" type="text" class="form-control" id="nombre" name="nombre" required>
+                                    <div class="invalid-feedback">
+                                        Escriba un nombre.
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label" for="descripcion">Descripción<span class="text-danger">*</span></label>
+                                    <textarea required maxlength="2000" style="height: 80px;resize: none;" type="text" class="form-control" id="descripcion" name="descripcion"></textarea>
+                                    <div class="invalid-feedback">
+                                        Escriba la descripción.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label" for="idUbicacion">Ubicación</label>
+                                    <select id="idUbicacion" name="idUbicacion" class="custom-select" required>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="col-md-12 mb-3">
+                                    <label class="form-label" for="nombreTitular">Nombre del titular<span class="text-danger">*</span></label>
+                                    <input maxlength="250" type="text" class="form-control" id="nombreTitular" name="nombreTitular" required>
+                                    <div class="invalid-feedback">
+                                        Escriba un nombre para el titular.
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button id="cancelar" type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Cancelar</button>
+                        <button id="guardar" class="btn btn-primary waves-effect waves-themed" type="submit">Guardar</button>
+                        <button id="guardarLoading" class="btn btn-info" type="button" disabled style="display: none;">
+                            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="modal fade" id="eliminar-elemento-modal" data-backdrop="static" data-keyboard="false">
+        <form id="eliminar-elemento-form" class="needs-validation">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Eliminar dependencia</h5>
+                    </div>
+                    <div class="modal-body">
+                        <div class="panel-content">
+                            <div class="form-row">
+                                <strong>¿Desea eliminar la dependencia <span id="elementoEliminar"></span> ?</strong>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <input type="hidden" id="idEliminar" />
+                        <button id="cancelarEliminar" type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Cancelar</button>
+                        <button id="eliminar" class="btn btn-primary waves-effect waves-themed" type="button">Eliminar</button>
+                        <button id="eliminarLoading" class="btn btn-info" type="button" disabled style="display: none;">
+                            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                            Eliminar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+    <div th:replace="fragments/dependencias-modal :: dependencias-modal"></div>
+    <script th:src="@{/js/dx-diagram.min.js}"></script>
+    <footer th:replace="fragments/base-scripts :: base-scripts"></footer>
+    <script th:src="@{/js/estructura-municipal.js}"></script>
+
+</body>
+
+</html>

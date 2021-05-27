@@ -1,0 +1,180 @@
+<div th:fragment="recursos-modal" class="modal fade" id="recursos-modal" data-backdrop="static" data-keyboard="false">
+    <style>
+        .resource-active {
+            border: 3px solid #aba1cc !important;
+        }
+    </style>
+    <div class="modal-dialog modal-xl modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Seleccionar recursos</h5>
+            </div>
+            <div class="modal-body">
+                <div class="panel-content">
+
+
+                    <div class="form-row">
+                        <div class="col-md-2 mb-3">
+                            <label class="form-label" for="f-tipoRecurso">Tipo</label>
+                            <select id="f-tipoRecurso" name="f-tipoRecurso" class="custom-select">
+                                                <option value="-1" selected>Selecciona</option>
+                                            </select>
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <label class="form-label" for="f-visibilidad">Visibilidad</label>
+                            <select id="f-visibilidad" name="f-visibilidad" class="custom-select">
+                                                <option value="-1" selected>Selecciona</option>
+                                            </select>
+                        </div>
+
+                        <div class="col-md-5 mb-3">
+                            <label class="form-label" for="f-descripcion">Descripción</label>
+                            <input maxlength="100" type="text" class="form-control" id="f-descripcion" name="f-descripcion">
+                        </div>
+                        <div class="col-md-3 mb-3 d-flex justify-content-end align-items-end">
+                            <button onclick="recursosModal.limpiarFiltros()" class="btn btn-secondary waves-effect waves-themed mr-2" type="button">Limpiar</button>
+                            <button onclick="recursosModal.filtrar()" class="btn btn-primary waves-effect waves-themed" type="button">Filtrar</button>
+                        </div>
+                    </div>
+
+
+                    <div id="recusos-container" class="form-row" style="height: 320px;overflow-y: auto;width: 100%;">
+
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Cancelar</button>
+                <button onclick="recursosModal.setRecursos()" id="recursos-seleccionar" class="btn btn-primary waves-effect waves-themed" type="button">Seleccionar</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const RecursosModal = function() {
+            var callback = null;
+            var recurso = null;
+
+            const recursoTemplate = (id, descripcion, urlToDisplay, ulrRecurso, url) => `
+        <div class="col-3 mb-2" id="${id}">
+            <div onclick="recursosModal.clickHandler(this)" pid="${id}" class="card border m-auto m-lg-0 shadow-hover" style="height: 200px;;width: 100%;">
+                <div class="card-body d-flex align-items-center">
+                    <img src="${urlToDisplay}" class="card-img-top" style="max-height: 145px;">
+                </div>
+                <div class="card-footer" style="width: 100%;text-overflow: ellipsis;overflow: hidden;">
+                    <span title="${descripcion}" style="white-space: nowrap;">${descripcion}</span>
+                </div>
+            </div>
+        </div>
+`;
+
+            const init = () => {
+                obtenerRecursos(function(res) {
+                    showRecursosModal(res);
+                    $('#recursos-modal').modal('show');
+                });
+
+                obtenerTRVS((res) => {
+                    clearSelect($('#f-tipoRecurso'), 'Seleccione', -1);
+                    clearSelect($('#f-visibilidad'), 'Seleccione', -1);
+                    res.tr.forEach(elemento => {
+                        $('#f-tipoRecurso').append(new Option(elemento.nombre, elemento.idTipoRecurso));
+                    });
+
+                    res.vs.forEach(elemento => {
+                        $('#f-visibilidad').append(new Option(elemento.nombre, elemento.idTipoVisibilidad));
+                    });
+                });
+            };
+
+            const obtenerRecursos = (callback) => {
+                let idTipoRecurso = $('#f-tipoRecurso').val();
+                if (idTipoRecurso == -1)
+                    idTipoRecurso = '';
+
+                let idVisibildad = $('#f-visibilidad').val();
+                if (idVisibildad == -1)
+                    idVisibildad = '';
+                $.ajax({
+                    type: "GET",
+                    url: window.MRM_REMTYS_API_URL + "/recursos",
+                    data: {
+                        t: idTipoRecurso,
+                        tv: idVisibildad,
+                        de: $('#f-descripcion').val()
+                    },
+                    beforeSend: function(xhr, settings) {
+                        xhr.setRequestHeader("Authorization", "Bearer " + window.MRM_TOKEN);
+                    },
+                    success: function(res) {
+                        if (callback) callback(res);
+                    },
+                    error: function(e) {
+                        if (e.status == 403)
+                            window.location = window.MRM_REMTYS_APP_URL;
+                        else toast('warning', 'No se puede conectar al sistema, intente más tarde.', 'Remtys API:RecursosModal');
+                        console.error(e);
+                    }
+                });
+            };
+
+            const showRecursosModal = (res) => {
+                $('#recusos-container').html('');
+                recursos = res.content;
+                let icon = null;
+                recursos.forEach(item => {
+                    icon = getIconFile(item.url);
+                    if (icon == 'image.png')
+                        icon = item.url
+                    else
+                        icon = 'img/' + icon;
+                    const element = $(recursoTemplate(item.idRecurso, item.descripcion, icon, item.url));
+                    element.appendTo($('#recusos-container'));
+                });
+            };
+            return {
+                show: function(callb) {
+                    callback = callb;
+                    init();
+                },
+                filtrar: () => {
+                    obtenerRecursos(function(res) {
+                        showRecursosModal(res);
+                    });
+                },
+                limpiarFiltros: () => {
+                    $('#f-tipoRecurso').val('-1');
+                    $('#f-visibilidad').val('-1');
+                    $('#f-descripcion').val('');
+                    obtenerRecursos(function(res) {
+                        showRecursosModal(res);
+                    });
+                },
+                clickHandler: (element) => {
+                    $('#recusos-container').find('.resource-active').each((index, item) => {
+                        $(item).removeClass('resource-active');
+                    });
+                    $(element).addClass('resource-active');
+                    let idRecurso = $(element).attr('pid');
+                    let selected = $.grep(recursos, (item) => {
+                        return item.idRecurso == idRecurso;
+                    });
+                    if (selected.length > 0)
+                        recurso = selected[0];
+                    else
+                        recurso = null;
+                },
+                setRecursos: () => {
+                    if (callback)
+                        callback(recurso);
+                    $('#recursos-modal').modal('hide');
+                }
+            }
+        };
+        (function() {
+            recursosModal = new RecursosModal();
+        })();
+    </script>
+</div>

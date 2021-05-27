@@ -1,0 +1,85 @@
+<div>
+    <ul id="jqCards" style="padding: 0px;"></ul>
+    <button style="display: none;" id="guardar" class="btn btn-primary waves-effect waves-themed" type="button">Guardar</button>
+</div>
+
+
+
+
+
+<nav class="shortcut-menu d-none d-sm-block">
+    <a href="javascript:showModal(null)" class="menu-item btn waves-effect waves-themed nuevo-procedimiento-btn" title="Nuevo procedimiento" style="display: none;">
+        <i class="fal fa-plus"></i>
+    </a>
+</nav>
+
+<div class="modal fade" id="elemento-modal" data-backdrop="static" data-keyboard="false">
+    <form id="elemento-form" class="needs-validation">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="elemento-modal-title" class="modal-title">Procedimiento ciudadano</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-content">
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label" for="idTipoActorFlujo">Actor<span class="text-danger">*</span></label>
+                                <select id="idTipoActorFlujo" name="idTipoActorFlujo" class="custom-select" required>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label" for="descripcion">Descripción del procedimiento<span class="text-danger">*</span></label>
+                                <textarea required maxlength="2000" style="height: 150px;resize: none;" type="text" class="form-control" id="descripcion" name="descripcion"></textarea>
+                                <div class="invalid-feedback">
+                                    Escriba la descripción del procedimiento.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="cancelar" type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Cancelar</button>
+                    <button id="guardarElemento" class="btn btn-primary waves-effect waves-themed" type="submit">Guardar</button>
+                    <button id="guardarElementoLoading" class="btn btn-info" type="button" disabled style="display: none;">
+                        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                        Guardar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal fade" id="eliminar-elemento-modal" data-backdrop="static" data-keyboard="false">
+    <form id="eliminar-elemento-form" class="needs-validation">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Eliminar procedimiento</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-content">
+                        <div class="form-row">
+                            <strong>¿Desea eliminar el procedimiento número <span id="elementoEliminar"></span> ?</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" id="idEliminar" />
+                    <button id="cancelarEliminar" type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Cancelar</button>
+                    <button id="eliminar" class="btn btn-primary waves-effect waves-themed" type="submit">Eliminar</button>
+                    <button id="eliminarLoading" class="btn btn-info" type="button" disabled style="display: none;">
+                        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                        Eliminar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="../js/t-p-cuidadano.js"></script>

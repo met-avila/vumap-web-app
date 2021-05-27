@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8">
+
+    <meta name="description" content="Profile">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no, user-scalable=no, minimal-ui">
+    <!-- Call App Mode on ios devices -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <!-- Remove Tap Highlight on Windows Phone IE -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <link rel="stylesheet" media="screen, print" th:href="@{/css/vendors.bundle.css}">
+    <link rel="stylesheet" media="screen, print" th:href="@{/css/app.bundle.css}">
+    <!-- Place favicon.ico in the root directory -->
+    <link rel=" apple-touch-icon " sizes="180x180 " th:href="@{/img/favicon/apple-touch-icon.png}">
+    <link rel="icon " type="image/png " sizes="32x32 " th:href="@{/img/favicon/favicon-32x32.png}">
+    <link rel="mask-icon" th:href="@{/img/favicon/safari-pinned-tab.svg}" color="#5bbad5">
+
+    <link id="icono" rel="icon " type="image/png " sizes="32x32 ">
+    <!-- Optional: page related CSS-->
+    <link rel="stylesheet " media="screen, print " th:href="@{/css/fa-brands.css}">
+    <link rel="stylesheet " media="screen, print " th:href="@{/css/fa-solid.css}">
+    <link rel="stylesheet " type="text/css " th:href="@{/css/dx-diagram.min.css}" />
+
+    <link rel="stylesheet" th:href="@{/css/ol/ol.css}">
+</head>
+
+<!-- <body class="mod-bg-1 mod-nav-link nav-function-fixed"> -->
+
+<body class="mod-bg-1 mod-nav-link nav-function-fixed desktop chrome webkit pace-done blur">
+    <div class="pace  pace-inactive">
+        <div class="pace-progress" data-progress-text="100%" data-progress="99" style="transform: translate3d(100%, 0px, 0px);">
+            <div class="pace-progress-inner"></div>
+        </div>
+        <div class="pace-activity"></div>
+    </div>
+    <div class="page-wrapper">
+        <div class="page-inner">
+            <div class="page-content-wrapper" style="padding-left: 0px;">
+
+                <main id="js-page-content" role="main" class="page-content">
+                    <div class="subheader" style="margin-bottom: calc(0.5rem);">
+                        <h3 class="subheader-title text-center tipoRemtysU"></h3>
+                    </div>
+                    <div class="subheader" style="margin-bottom: calc(1rem);">
+                        <h3 class="subheader-title text-center nombreTramite"></h3>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12 col-xl-12">
+                            <div class="card mb-g rounded-top p-4">
+                                <div class="panel-content">
+
+                                    <div class="accordion accordion-outline" id="js_demo_accordion-3">
+
+                                        <div class="card" id="pdgenerales">
+                                            <div class="card-header">
+                                                <a href="javascript:void(0);" class="card-title" data-toggle="collapse" data-target="#js_demo_accordion-3a" aria-expanded="false">
+                                                    <i class="fal fa-file-alt width-2 fs-xl"></i><span class="form-label">Datos Generales del <span class="tipoRemtysU"></span></span>
+                                                    <span class="ml-auto">
+                                                            <span class="collapsed-reveal">
+                                                                <i class="fal fa-minus fs-xl"></i>
+                                                            </span>
+                                                    <span class="collapsed-hidden">
+                                                                <i class="fal fa-plus fs-xl"></i>
+                                                            </span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div id="js_demo_accordion-3a" class="collapse show" data-parent="#js_demo_accordion-3">
+                                                <div class="card-body">
+
+                                                    <div class="form-row mb-2">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <span><strong>Nombre del <span class="tipoRemtys"></span>:</strong>
+                                                                </span>
+                                                                <span class="nombreTramite"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row mb-2">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <span><strong>Descripción:</strong>
+                                                                    </span>
+                                                                <span class="resumen"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row mb-2">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <span><strong>Este <span class="tipoRemtys"></span> lo realiza:</strong>
+                                                                </span>
+                                                                <span class="tramiteLoRealiza"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row mb-2">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <span><strong>Dependencia u Organismo:</strong>
+                                                                    </span>
+                                                                <span class="dependencia"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row mb-2">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <span><strong>Unidad administrativa Responsable:</strong>
+                                                                    </span>
+                                                                <span class="dependenciaResponsable"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="form-row mb-2">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <span><strong>Documento a obtener:</strong>
+                                                                    </span>
+                                                                <span class="documentoQueObtiene"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row mb-2">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <span><strong>Vigencia del documento:</strong>
+                                                                    </span>
+                                                                <span class="vigenciaDocumento"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row mb-2">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <span><strong>Casos en los que el <span class="tipoRemtys"></span> debe realizarse:</strong>
+                                                                </span>
+                                                                <span class="casosRealizar"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row mb-2">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <span><strong>Fundamento legal:</strong>
+                                                                    </span>
+                                                                <span class="fundamentoLegal"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card" id="pdrequisitos">
+                                            <div class="card-header">
+                                                <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-3b" aria-expanded="false">
+                                                    <i class="fal fa-clipboard-list-check width-2 fs-xl"></i>Requisitos
+                                                    <span class="ml-auto">
+                                                            <span class="collapsed-reveal">
+                                                                <i class="fal fa-minus fs-xl"></i>
+                                                            </span>
+                                                    <span class="collapsed-hidden">
+                                                                <i class="fal fa-plus fs-xl"></i>
+                                                            </span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div id="js_demo_accordion-3b" class="collapse" data-parent="#js_demo_accordion-3">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-12 text-right">
+                                                            <div id="tiposPersonas" class="btn-group btn-group-toggle" data-toggle="buttons">
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <table id="dt-requisitos" class="table table-bordered table-hover table-striped w-100 mb-3">
+
+                                                    </table>
+                                                    <div id="fundamentoJuridicoContainer" class="form-row mb-2">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <span><strong>Fundamento jurídico - administrativo :</strong>
+                                                                    </span>
+                                                                <textarea readonly style="height: 80px;" type="text" class="form-control mt-2" id="fundamentoJuridico" name="fundamentoJuridico"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card" id="pdcostos">
+                                            <div class="card-header">
+                                                <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-3c" aria-expanded="false">
+                                                    <i class="fal fa-money-bill-alt width-2 fs-xl"></i> Costos
+                                                    <span class="ml-auto">
+                                                            <span class="collapsed-reveal">
+                                                                <i class="fal fa-minus fs-xl"></i>
+                                                            </span>
+                                                    <span class="collapsed-hidden">
+                                                                <i class="fal fa-plus fs-xl"></i>
+                                                            </span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div id="js_demo_accordion-3c" class="collapse" data-parent="#js_demo_accordion-3">
+                                                <div class="card-body">
+                                                    <div class="form-row mb-2">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <span><strong>El <span class="tipoRemtys"></span> tiene costo:</strong>
+                                                                </span>
+                                                                <span class="tramiteTieneCosto"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div id="contenedorCostos">
+                                                        <div class="form-row mb-2">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <span><strong>Costo:</strong>
+                                                                        </span>
+                                                                    <span class="montoCosto"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row mb-2">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <span><strong>Donde puede pagarse:</strong>
+                                                                        </span>
+                                                                    <span class="dondePodraPagarse"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row mb-2">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <span><strong>Formas de pago:</strong>
+                                                                        </span>
+                                                                    <span class="formasPagos"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-row mb-2">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <span><strong>Descripción del costo:</strong>
+                                                                        </span>
+                                                                    <span class="descripcionCosto"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-row mb-2">
+                                                            <div class="col-md-12">
+                                                                <div class="form-group">
+                                                                    <span><strong>Criterios de resolución:</strong>
+                                                                        </span>
+                                                                    <span class="criteriosResolucion"></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card" id="pdhorariosAtencion">
+                                            <div class="card-header">
+                                                <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-3d" aria-expanded="false">
+                                                    <i class="fal fa-calendar-day width-2 fs-xl"></i> Donde se realiza y horarios de atención
+                                                    <span class="ml-auto">
+                                                            <span class="collapsed-reveal">
+                                                                <i class="fal fa-minus fs-xl"></i>
+                                                            </span>
+                                                    <span class="collapsed-hidden">
+                                                                <i class="fal fa-plus fs-xl"></i>
+                                                            </span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div id="js_demo_accordion-3d" class="collapse" data-parent="#js_demo_accordion-3">
+                                                <div class="card-body">
+                                                    <div class="form-row mb-2">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <span><strong class="nombreUbicacion"></strong>
+                                                                </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row mb-2">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <span><strong>Dirección:</strong>
+                                                                    </span>
+                                                                <span class="direccionUbicacion"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-row mb-2">
+                                                        <div class="col-md-12">
+                                                            <div class="form-group">
+                                                                <span><strong>Horarios de antención:</strong>
+                                                                    </span>
+                                                                <span class="horariosDeAtencion"></span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card" id="pdprocedimiento">
+                                            <div class="card-header">
+                                                <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-3e" aria-expanded="false">
+                                                    <i class="fal fa-sync width-2 fs-xl"></i> Procedimiento
+                                                    <span class="ml-auto">
+                                                            <span class="collapsed-reveal">
+                                                                <i class="fal fa-minus fs-xl"></i>
+                                                            </span>
+                                                    <span class="collapsed-hidden">
+                                                                <i class="fal fa-plus fs-xl"></i>
+                                                            </span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div id="js_demo_accordion-3e" class="collapse" data-parent="#js_demo_accordion-3">
+                                                <div class="card-body">
+                                                    <ul id="jqCardsProcedimiento" style="padding: 0px;"></ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card" id="pdflujots">
+                                            <div class="card-header" onclick="setTimeout(()=>{window.dispatchEvent(new Event('resize'));},200)">
+                                                <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-3e" aria-expanded="false">
+                                                    <i class="fal fa-project-diagram width-2 fs-xl"></i> Flujo
+                                                    <span class="ml-auto">
+                                                            <span class="collapsed-reveal">
+                                                                <i class="fal fa-minus fs-xl"></i>
+                                                            </span>
+                                                    <span class="collapsed-hidden">
+                                                                <i class="fal fa-plus fs-xl"></i>
+                                                            </span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div id="js_demo_accordion-3e" class="collapse" data-parent="#js_demo_accordion-3">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div id="diagram" style="width: 100%;">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card" id="pdduracion">
+                                            <div class="card-header">
+                                                <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-3f" aria-expanded="false">
+                                                    <i class="fal fa-alarm-clock  width-2 fs-xl"></i> Duración y respuesta
+                                                    <span class="ml-auto">
+                                                            <span class="collapsed-reveal">
+                                                                <i class="fal fa-minus fs-xl"></i>
+                                                            </span>
+                                                    <span class="collapsed-hidden">
+                                                                <i class="fal fa-plus fs-xl"></i>
+                                                            </span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div id="js_demo_accordion-3f" class="collapse" data-parent="#js_demo_accordion-3">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-8">
+                                                            <div class="form-row mb-2">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <span><strong>Si su <span class="tipoRemtys"></span> procede, entonces obtendrá:</strong>
+                                                                        </span>
+                                                                        <br>
+                                                                        <h1 class="documentoQueObtiene">
+                                                                        </h1>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-4">
+                                                            <div class="form-row mb-2">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <span><strong>Plazo máximo de respuesta:</strong>
+                                                                            </span>
+                                                                        <br>
+                                                                        <h1 class="plazoRespuesta">
+                                                                        </h1>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card" id="pdrelacionados">
+                                            <div class="card-header">
+                                                <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-3g" aria-expanded="false">
+                                                    <i class="fal fa-tasks-alt width-2 fs-xl"></i> Trámites y servicios relacionados
+                                                    <span class="ml-auto">
+                                                            <span class="collapsed-reveal">
+                                                                <i class="fal fa-minus fs-xl"></i>
+                                                            </span>
+                                                    <span class="collapsed-hidden">
+                                                                <i class="fal fa-plus fs-xl"></i>
+                                                            </span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div id="js_demo_accordion-3g" class="collapse" data-parent="#js_demo_accordion-3">
+                                                <div class="card-body">
+                                                    <ul id="jqCardsRelacionados" style="padding: 0px;"></ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card" id="pdinfoAdicional">
+                                            <div class="card-header">
+                                                <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-3h" aria-expanded="false">
+                                                    <i class="fal fa-newspaper width-2 fs-xl"></i> Más información del&nbsp;<span class="tipoRemtys"></span>
+                                                    <span class="ml-auto">
+                                                            <span class="collapsed-reveal">
+                                                                <i class="fal fa-minus fs-xl"></i>
+                                                            </span>
+                                                    <span class="collapsed-hidden">
+                                                                <i class="fal fa-plus fs-xl"></i>
+                                                            </span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div id="js_demo_accordion-3h" class="collapse" data-parent="#js_demo_accordion-3">
+                                                <div class="card-body">
+                                                    <div class="infoAdicional"></div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="card" id="pddocumentos">
+                                            <div class="card-header">
+                                                <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-3i" aria-expanded="false">
+                                                    <i class="fal fa-books width-2 fs-xl"></i> Documentos relacionados
+                                                    <span class="ml-auto">
+                                                            <span class="collapsed-reveal">
+                                                                <i class="fal fa-minus fs-xl"></i>
+                                                            </span>
+                                                    <span class="collapsed-hidden">
+                                                                <i class="fal fa-plus fs-xl"></i>
+                                                            </span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div id="js_demo_accordion-3i" class="collapse" data-parent="#js_demo_accordion-3">
+                                                <div class="card-body">
+                                                    <ul id="jqCardsDocumentos" style="padding: 0px;"></ul>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="card" id="pdOficinas">
+                                            <div class="card-header">
+                                                <a href="javascript:void(0);" class="card-title collapsed" data-toggle="collapse" data-target="#js_demo_accordion-3j" aria-expanded="false">
+                                                    <i class="fal fa-house-return width-2 fs-xl"></i> Otras oficinas que prestan el servicio
+                                                    <span class="ml-auto">
+                                                            <span class="collapsed-reveal">
+                                                                <i class="fal fa-minus fs-xl"></i>
+                                                            </span>
+                                                    <span class="collapsed-hidden">
+                                                                <i class="fal fa-plus fs-xl"></i>
+                                                            </span>
+                                                    </span>
+                                                </a>
+                                            </div>
+                                            <div id="js_demo_accordion-3j" class="collapse show" data-parent="#js_demo_accordion-3">
+                                                <div class="card-body">
+                                                    <div class="row">
+                                                        <div class="col-6">
+                                                            <div class="form-row">
+                                                                <div class="col-md-8 mb-3">
+                                                                    <label class="form-label" for="idOficina">Oficina</label>
+                                                                    <select id="idOficina" name="idOficina" class="custom-select">
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-row mb-2">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <span><strong>Nombre del titular de la oficina:</strong>
+                                                                            </span>
+                                                                        <span class="ofTitular"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-row mb-2">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <span><strong>Horario y días de atención:</strong>
+                                                                            </span>
+                                                                        <span class="ofHorariosAtencion"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-row mb-2">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <span><strong>Dirección:</strong>
+                                                                            </span>
+                                                                        <span class="ofDireccion"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <div class="form-row mb-2">
+                                                                <div class="col-md-2">
+                                                                    <div class="form-group">
+                                                                        <span><strong>Lada:</strong>
+                                                                            </span>
+                                                                        <span class="ofLada"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-5">
+                                                                    <div class="form-group">
+                                                                        <span><strong>Teléfonos:</strong>
+                                                                            </span>
+                                                                        <span class="ofTelefonos"></span>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-5">
+                                                                    <div class="form-group">
+                                                                        <span><strong>Extensión:</strong>
+                                                                            </span>
+                                                                        <span class="ofExtension"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-row mb-2">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <span><strong>Fax:</strong>
+                                                                            </span>
+                                                                        <span class="ofFax"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-row mb-2">
+                                                                <div class="col-md-12">
+                                                                    <div class="form-group">
+                                                                        <span><strong>Correo electrónico:</strong>
+                                                                            </span>
+                                                                        <span class="ofEmail"></span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-6">
+                                                            Ubicación
+                                                            <div class="form-row mb-2">
+                                                                <div id="map" style="height:220px;width: 100%;"></div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+    <footer>
+
+
+
+        <script th:src="@{/js/vendors.bundle.js}"></script>
+        <script th:src="@{/js/dx-diagram.min.js}"></script>
+        <script th:src="@{/js/dx2020.all.js}"></script>
+        <script th:src="@{/js/public/tramite-servicio.js}"></script>
+        <script th:src="@{/js/datagrid/datatables/datatables.bundle.js}"></script>
+        <script th:src="@{/js/ol/ol.js}"></script>
+        <script th:src="@{/js/public/app-public.js}"></script>
+
+        <script th:inline="javascript">
+            /*<![CDATA[*/
+            window.MRM_REMTYS_API_URL = /*[[${remtysApiUrl}]]*/ 'default';
+            window.MRM_REMTYS_APP_URL = /*[[${remtysAppUrl}]]*/ 'default';
+            /*]]>*/
+        </script>
+</body>
+
+</html>

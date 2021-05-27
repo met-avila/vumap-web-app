@@ -1,0 +1,9 @@
+<ul th:fragment="sidebar-menu-item">
+    <li th:each="menuItem : ${menuItemsList}" th:attr="id=${menuItem.href}">
+        <a th:attr="title=${menuItem.nombre},href=(${menuItem.href !='#'})?(${#authentication.principal.config.remtysAppUrl}+${menuItem.href}):'#'">
+            <i th:class="${menuItem.icono}"></i>
+            <span class="nav-link-text" data-i18n="nav.theme_settings" th:text="${menuItem.nombre}"></span>
+        </a>
+        <section th:include="fragments/sidebar-menu-item :: sidebar-menu-item" th:with="menuItemsList=${menuItem.menus}"></section>
+    </li>
+</ul>

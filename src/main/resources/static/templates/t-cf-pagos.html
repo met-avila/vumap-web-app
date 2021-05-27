@@ -1,0 +1,91 @@
+<form id="elemento-form" class="needs-validation">
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label class="form-label" for="tramiteTieneCosto">¿El tramite o Servicio tiene costo?<span class="text-danger">*</span></label>
+            <select id="tramiteTieneCosto" name="tramiteTieneCosto" class="custom-select" required>
+                <option value="1">SI</option>
+                <option value="0">NO</option>
+            </select>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="form-label" for="idTipoCosto">Tipo de costo</label>
+            <select id="idTipoCosto" name="idTipoCosto" class="custom-select">
+
+            </select>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="form-label" for="montoCosto">Monto del costo (MXN)</label>
+            <div class="input-group">
+                <div class="input-group-prepend">
+                    <div class="input-group-text text-success">
+                        <i class="fal fa-dollar-sign"></i>
+                    </div>
+                </div>
+                <input maxlength="10" type="text" class="form-control" id="montoCosto" name="montoCosto">
+            </div>
+            <div class="invalid-feedback">
+                Escriba un costo.
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-12 mb-3">
+            <label class="form-label" for="descripcionCosto">Descripción del costo (variable)</label>
+            <textarea maxlength="2000" style="height: 100px;resize: none;" type="text" class="form-control" id="descripcionCosto" name="descripcionCosto"></textarea>
+            <div class="invalid-feedback">
+                Escriba una descripción del costo.
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-7 mb-3">
+            <div class="row">
+                <div class="col-5">
+                    <label class="form-label" for="resumen">Formas de pago (disponibles)</label>
+                    <div id="fpDisponibles" class="border rounded"></div>
+                </div>
+                <div class="col-2 d-flex align-items-center text-center">
+                    <div class="col text-center">
+                        <button id="fp-asignar" type="button" class="btn btn-secondary waves-effect waves-themed mb-2">
+                            <span class="fal fa-angle-double-right"></span>
+                        </button>
+                        <br>
+                        <button id="fp-quitar" type="button" class="btn btn-secondary waves-effect waves-themed">
+                            <span class="fal fa-angle-double-left"></span>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-5">
+                    <label class="form-label" for="resumen">Formas de pago (seleccionadas)
+                    </label>
+                    <div id="fpSeleccionadas" class="border rounded"></div>
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-5 mb-3">
+            <label class="form-label" for="dondePodraPagarse">¿Donde podrá pagarse?</label>
+            <textarea maxlength="2000" style="height: 230px;resize: none;" type="text" class="form-control" id="dondePodraPagarse" name="dondePodraPagarse"></textarea>
+            <div class="invalid-feedback">
+                Escriba donde podrá pagarse.
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-12 mb-3">
+            <label class="form-label" for="criteriosResolucion">Criterios de resolución</label>
+            <textarea maxlength="2000" style="height: 100px;resize: none;" type="text" class="form-control" id="criteriosResolucion" name="criteriosResolucion"></textarea>
+            <div class="invalid-feedback">
+                Escriba los criterios de resolución.
+            </div>
+        </div>
+    </div>
+    <div class="form-row" style="display: none;">
+        <div class="col-md-12 mb-3 text-right">
+            <button id="guardar" class="btn btn-primary waves-effect waves-themed" type="submit">Guardar</button>
+        </div>
+    </div>
+</form>
+
+
+<script src="../js/t-cf-pagos.js"></script>

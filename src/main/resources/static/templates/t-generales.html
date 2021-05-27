@@ -1,0 +1,204 @@
+<form id="elemento-form" class="needs-validation">
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label class="form-label" for="tiposRemtys">Tipo<span class="text-danger">*</span></label>
+            <select id="tiposRemtys" name="tiposRemtys" class="custom-select" required>
+                                            </select>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="form-label" for="categoria">Categoría</label><span class="text-danger">*</span></label>
+            <select id="categoria" name="categoria" class="custom-select" required>
+                                            </select>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                <label class="form-label" for="inputGroupSelect02">Dependencia u organización<span class="text-danger">*</span></label>
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="hidden" id="idDependencia">
+                        <input onfocus="showDependencias(); this.readOnly=true;" onblur="this.readOnly=false;" maxlength="250" type="text" class="form-control" id="dependencia" name="dependencia" required>
+                        <div class="input-group-append ml-2" style="display: block;">
+                            <a href="javascript:showDependencias();" class="btn btn-secondary btn-icon rounded-circle waves-effect waves-themed">
+                                <i class="fal fa-cog fs-md"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-8 mb-3">
+            <label class="form-label" for="tramiteLoRealiza">Este trámite lo realiza<span class="text-danger">*</span></label>
+            <input maxlength="250" type="text" class="form-control" id="tramiteLoRealiza" name="tramiteLoRealiza" required>
+            <div class="invalid-feedback">
+                Escriba un nombre.
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <div class="form-group">
+                <label class="form-label" for="inputGroupSelect02">Unidad administrativa responsable</label>
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="hidden" id="idDependencia_ua">
+                        <input onfocus="showDependenciasUnidadAdmin(); this.readOnly=true;" onblur="this.readOnly=false;" maxlength="250" type="text" class="form-control" id="dependencia_ua" name="dependencia_ua">
+                        <div class="input-group-append ml-2" style="display: block;">
+                            <a href="javascript:showDependenciasUnidadAdmin();" class="btn btn-secondary btn-icon rounded-circle waves-effect waves-themed">
+                                <i class="fal fa-cog fs-md"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-12 mb-3">
+            <label class="form-label" for="nombreTramite">Nombre del trámite<span class="text-danger">*</span></label>
+            <input maxlength="100" type="text" class="form-control" id="nombreTramite" name="nombreTramite" required>
+            <div class="invalid-feedback">
+                Escriba un nombre.
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-12 mb-3">
+            <label class="form-label" for="resumen">Resumen o descripción del trámite</label>
+            <textarea maxlength="2000" style="height: 100px;resize: none;" type="text" class="form-control" id="resumen" name="resumen"></textarea>
+            <div class="invalid-feedback">
+                Escriba un nombre para el trámite/servicio.
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-4 mb-3 d-flex align-items-center">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="tysEnLinea" name="tysEnLinea">
+                <label class="custom-control-label" for="tysEnLinea">¿El trámite/servicio se realiza en línea?</label>
+            </div>
+        </div>
+        <div class="col-md-8 mb-3">
+            <label class="form-label" for="urlTysEnLinea">Link del trámite/servicio online</label>
+            <input maxlength="100" type="url" class="form-control" id="urlTysEnLinea" name="urlTysEnLinea" readonly>
+            <div class="invalid-feedback">
+                Escriba un link del trámite o servicion online.
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-4 mb-3 d-flex align-items-center">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="tysEnApp" name="tysEnApp">
+                <label class="custom-control-label" for="tysEnApp">¿El trámite/servicio se realiza en App?</label>
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="form-label" for="urlTysAndroid">Link del trámite/servicio Google Play</label>
+            <input maxlength="100" type="url" class="form-control" id="urlTysAndroid" name="urlTysAndroid" readonly>
+            <div class="invalid-feedback">
+                Escriba el link de la app en Google Play.
+            </div>
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="form-label" for="urlTysIphone">Link del trámite/servicio AppleStore</label>
+            <input maxlength="100" type="url" class="form-control" id="urlTysIphone" name="urlTysIphone" readonly>
+            <div class="invalid-feedback">
+                Escriba el link de la app en AppleStore.
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-4 mb-3">
+            <label class="form-label" for="whatsAppAtencion">WhatssApp de atención</label>
+            <input maxlength="10" type="text" class="form-control" id="whatsAppAtencion" name="whatsAppAtencion">
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="form-label" for="telefonoAtencion1">Teléfono de atención 1</label>
+            <input maxlength="10" type="text" class="form-control" id="telefonoAtencion1" name="telefonoAtencion1">
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="form-label" for="telefonoAtencion2">Teléfono de atención 2</label>
+            <input maxlength="10" type="text" class="form-control" id="telefonoAtencion2" name="telefonoAtencion2">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-8 mb-3">
+            <label class="form-label" for="horariosDeAtencion">Horarios de atención</label>
+            <input maxlength="100" type="text" class="form-control" id="horariosDeAtencion" name="horariosDeAtencion">
+        </div>
+        <div class="col-md-4 mb-3">
+            <label class="form-label" for="correoAtencion">Correo electrónico de atención</label>
+            <input maxlength="100" type="email" class="form-control" id="correoAtencion" name="correoAtencion">
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-3 mb-2 d-flex align-items-center">
+            <div class="custom-control custom-checkbox">
+                <input type="checkbox" class="custom-control-input" id="inmediato">
+                <label class="custom-control-label" for="inmediato">Trámite/Servicio Inmediato</label>
+            </div>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label class="form-label" for="plazoMaximoRespuesta">Plazo máximo de respuesta</label>
+            <input maxlength="2" max="99" min="0" type="text" class="form-control" id="plazoMaximoRespuesta" name="plazoMaximoRespuesta" required>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label class="form-label" for="idTipoDuracionTys">Tipo de duración</label>
+            <select id="idTipoDuracionTys" name="idTipoDuracionTys" class="custom-select" required>
+                                            </select>
+        </div>
+        <div class="col-md-3 mb-3">
+            <label class="form-label" for="idTipoDiasTys">Tipo de días</label>
+            <select id="idTipoDiasTys" name="idTipoDiasTys" class="custom-select" required>
+                                            </select>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-6 mb-3">
+            <label class="form-label" for="documentoQueObtiene">Documento que obtiene el usuario<span class="text-danger">*</span></label>
+            <textarea maxlength="2000" style="height: 100px;resize: none;" type="text" class="form-control" id="documentoQueObtiene" name="documentoQueObtiene" required></textarea>
+            <div class="invalid-feedback">
+                Escriba el documento que obtiene el usuario.
+            </div>
+        </div>
+        <div class="col-md-6 mb-3">
+            <label class="form-label" for="vigenciaDocumento">Vigencia del documento a obtener<span class="text-danger">*</span></label>
+            <textarea maxlength="250" style="height: 100px;resize: none;" type="text" class="form-control" id="vigenciaDocumento" name="vigenciaDocumento" required></textarea>
+            <div class="invalid-feedback">
+                Escriba la vigencia del documento
+            </div>
+        </div>
+    </div>
+
+    <div class="form-row">
+        <div class="col-md-12 mb-3">
+            <label class="form-label" for="fundamentoLegal">Fundamento legal<span class="text-danger">*</span></label>
+            <textarea maxlength="2000" style="height: 100px;resize: none;" type="text" class="form-control" id="fundamentoLegal" name="fundamentoLegal" required></textarea>
+            <div class="invalid-feedback">
+                Escriba el fundamento legal.
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="col-md-12 mb-3">
+            <label class="form-label" for="casosRealizar">Casos en los que el trámite debe realizarse<span class="text-danger">*</span></label>
+            <textarea maxlength="2000" style="height: 100px;resize: none;" type="text" class="form-control" id="casosRealizar" name="casosRealizar" required></textarea>
+            <div class="invalid-feedback">
+                Escriba los casos en los que debe realizarse.
+            </div>
+        </div>
+    </div>
+    <div id="ts-generales-actions-content" class="form-row">
+        <div class="col-md-12 mb-3 text-right">
+            <a href="/tramites-servicios" type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Cancelar</a>
+            <button id="guardar" class="btn btn-primary waves-effect waves-themed" type="submit">Guardar</button>
+            <button id="guardarLoading" class="btn btn-info" type="button" disabled style="display: none;">
+                                                <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                                                Guardar
+                                            </button>
+        </div>
+    </div>
+</form>
+
+
+<script src="../js/t-generales.js"></script>

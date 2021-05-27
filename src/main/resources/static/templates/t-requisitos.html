@@ -1,0 +1,163 @@
+<div>
+    <div class="row mb-4 ml-3">
+        <div id="tiposPersonas" class="btn-group btn-group-toggle" data-toggle="buttons">
+
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-2 text-right">
+            <h4>Número</h4>
+        </div>
+        <div class="col-6">
+            <h4>Descripción</h4>
+        </div>
+        <div class="col-2 text-center ">
+            <h4>Original</h4>
+        </div>
+        <div class="col-2 text-center">
+            <h4>Copias</h4>
+        </div>
+    </div>
+
+    <ul id="jqCards" style="padding: 0px;"></ul>
+
+    <!-- <div class="row" id="fjContainer">
+        <div class="col-md-12 mb-3">
+            <label class="form-label" for="fundamentoJuridico">Fundamento jurídico - administrativo</label>
+            <textarea maxlength="2000" style="height: 100px;resize: none;" type="text" class="form-control" id="fundamentoJuridico" name="fundamentoJuridico"></textarea>
+            <div class="invalid-feedback">
+                Escriba un fundamento jurídico.
+            </div>
+        </div>
+    </div> -->
+
+    <button style="display: none;" id="guardar" class="btn btn-primary waves-effect waves-themed" type="button">Guardar</button>
+</div>
+
+
+
+
+
+<nav class="shortcut-menu d-none d-sm-block">
+    <a href="javascript:showModal(null)" class="menu-item btn waves-effect waves-themed nuevo-requisito-btn" title="Nuevo requisito" style="display: none;">
+        <i class="fal fa-plus"></i>
+    </a>
+</nav>
+
+<div class="modal fade" id="elemento-modal" data-backdrop="static" data-keyboard="false">
+    <form id="elemento-form" class="needs-validation">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 id="elemento-modal-title" class="modal-title">Requisito</h5>
+                </div>
+                <div class="modal-body" style="padding-left: 1.25rem;padding-right: 1.25rem; padding-top:0.25rem; ">
+                    <div class="panel-content">
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label" for="descripcion">Descripción<span class="text-danger">*</span></label>
+                                <textarea required maxlength="250" style="height: 80px;resize: none;" type="text" class="form-control" id="descripcion" name="descripcion"></textarea>
+                                <div class="invalid-feedback">
+                                    Escriba una descripción.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="original">Orginal<span class="text-danger">*</span></label>
+                                <select id="original" name="original" class="custom-select" required>
+                                    <option selected value="NO_APLICA">No aplica</option>
+                                    <option value="SI">Si</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label" for="originalDetalle">Original (detalle)</label>
+                                <textarea maxlength="250" style="height: 60px;resize: none;" type="text" class="form-control" id="originalDetalle" name="originalDetalle"></textarea>
+                                <div class="invalid-feedback">
+                                    Escriba un detalle.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="copias">Copias<span class="text-danger">*</span></label>
+                                <select id="copias" name="copias" class="custom-select" required>
+                                    <option selected value="NO_APLICA">No aplica</option>
+                                    <option value="SI">Si</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label" for="numeroCopias">Número de copias</label>
+                                <input maxlength="3" type="text" class="form-control" id="numeroCopias" name="numeroCopias">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label" for="copiasDetalle">Copias (detalle)</label>
+                                <textarea maxlength="250" style="height: 60px;resize: none;" type="text" class="form-control" id="copiasDetalle" name="copiasDetalle"></textarea>
+                                <div class="invalid-feedback">
+                                    Escriba un detalle.
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="col-md-12 mb-3">
+                                <label class="form-label" for="fundamentoJuridicoItem">Fundamento jurídico</label>
+                                <textarea style="height: 80px;resize: none;" type="text" class="form-control" id="fundamentoJuridicoItem" name="fundamentoJuridicoItem"></textarea>
+                                <div class="invalid-feedback">
+                                    Escriba un fundamento jurídico.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button id="cancelar" type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Cancelar</button>
+                    <button id="guardarElemento" class="btn btn-primary waves-effect waves-themed" type="submit">Guardar</button>
+                    <button id="guardarElementoLoading" class="btn btn-info" type="button" disabled style="display: none;">
+                        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                        Guardar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="modal fade" id="eliminar-elemento-modal" data-backdrop="static" data-keyboard="false">
+    <form id="eliminar-elemento-form" class="needs-validation">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Eliminar requisito</h5>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-content">
+                        <div class="form-row">
+                            <strong>¿Desea eliminar el requisito <span id="elementoEliminar"></span> ?</strong>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" id="idEliminar" />
+                    <button id="cancelarEliminar" type="button" class="btn btn-secondary waves-effect waves-themed" data-dismiss="modal">Cancelar</button>
+                    <button id="eliminar" class="btn btn-primary waves-effect waves-themed" type="submit">Eliminar</button>
+                    <button id="eliminarLoading" class="btn btn-info" type="button" disabled style="display: none;">
+                        <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                        Eliminar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="../js/t-requisitos.js"></script>
